@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { CreateHair, findAll, findById } from "../controllers/Hair.controller.js";
+import { CreateHair, findAll, findById } from "../controllers/hair.controller.js";
 import { validUser } from "../middlewares/global.middlewares.js";
 import { authMiddleware } from "../middlewares/auth.middleware.js";
 
