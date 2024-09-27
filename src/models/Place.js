@@ -2,6 +2,11 @@ import { Schema,model } from "mongoose";
 
 
 const PlaceSchema = new Schema({
+    idPlaceOwner: {
+        type: Schema.Types.ObjectId,
+        ref: 'PlaceOwner', 
+        required: true,
+      },
     nome:{
         type:String,
         required: true
@@ -18,12 +23,28 @@ const PlaceSchema = new Schema({
         type:String,
         required: true
     },
-    pass_acesso:{
-        type:String,
-        required: true,
-        unique:true
-    }
-
+    dias_func: {
+      type: [String], 
+      required: true,
+      enum: ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'], 
+    },
+    horarios_func: [
+      {
+        dia: {
+          type: String,
+          required: true,
+          enum: ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'], 
+        },
+        abertura: {
+          type: String, 
+          required: true,
+        },
+        fechamento: {
+          type: String, 
+          required: true,
+        },
+      },
+    ],
 })
 
 
