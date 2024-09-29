@@ -7,6 +7,10 @@ const PlaceSchema = new Schema({
         ref: 'PlaceOwner', 
         required: true,
       },
+      foto:{
+        type:String,
+         required:false
+      },
     nome:{
         type:String,
         required: true

@@ -35,7 +35,11 @@ const ONGSchema = new Schema({
         enum: [0, 0.5, 1], 
         default: 0,
         required: true,
-    }
+    },
+    foto:{
+      type:String, 
+      required:false
+    },
 })
 
 
