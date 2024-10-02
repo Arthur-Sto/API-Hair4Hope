@@ -37,37 +37,7 @@ const UserSchema = new mongoose.Schema({
     default: null,
   },
   schedule: [
-    {
-      idSchedule: {
-        type: String,
-        required: true,
-      },
-      PlaceName: {
-        type: String,
-        required: true,
-      },
-      Day: {
-        type: String,
-        required: true,
-        enum: ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'], 
-      },
-      DayMonth: {
-        type: Number,
-        required: true,
-        min: 1,
-        max: 31, 
-      },
-      Month: {
-        type: Number,
-        required: true,
-        min: 1,
-        max: 12,
-      },
-      Horario: {
-        type: String,
-        required: true, 
-      },
-    },
+  
   ],
 });
 

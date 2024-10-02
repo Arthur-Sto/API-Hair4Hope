@@ -9,9 +9,13 @@ const ONGSchema = new Schema({
     Desc:{
         type:String,
         required: true
+    },
+    estab_parc:{
+        type:Array,
+        default:[]
     }
 })
 
 
-export const ONG = model("Place",ONGSchema)
+export const ONG = model("ONG",ONGSchema)
 

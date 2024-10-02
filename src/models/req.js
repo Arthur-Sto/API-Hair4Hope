@@ -1,7 +1,7 @@
 import { Schema,model } from "mongoose";
 
 
-const ONGSchema = new Schema({
+const reqSchema = new Schema({
     idPlace: {
         type: Schema.Types.ObjectId,
         ref: 'place', 

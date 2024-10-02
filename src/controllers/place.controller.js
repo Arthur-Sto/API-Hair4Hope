@@ -1,5 +1,6 @@
 
-import { CreatePlaceService } from "../services/place.service.js"
+import mongoose from "mongoose"
+import { CreatePlaceService, FindPlaceByIdService, FindAllPlacesService} from "../services/place.service.js"
 
 export const CreatePlace = async (req, res) => {
     
@@ -23,3 +24,34 @@ export const CreatePlace = async (req, res) => {
         return res.status(500).send({message:err})
     }
 }
+
+
+export const FindPlaceById = async (req,res) =>{
+    const placeID = req.params.id 
+
+    if(!placeID){
+        return res.status(400).send({message:"Algo deu Errado"})
+    }
+
+    if (!mongoose.Types.ObjectId.isValid(placeID)){
+        return res.status(400).send({message:"ID inválido"})
+    }
+
+    const place = await FindPlaceByIdService()
+
+   
+
+    return res.send({place})
+}
+
+
+export const FindAllPlaces = async (req, res)=>{
+    try{
+        const Places = await FindAllPlacesService()
+
+        res.send({results:Places})
+    }catch(err){
+        res.status(500).send({message:err})
+    }
+}
+

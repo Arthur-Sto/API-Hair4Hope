@@ -37,6 +37,6 @@ UserSchema.pre("save", async function (next) {
   next();
 });
 
-const ONGrep = mongoose.model("User", ONGrepSchema);
+const ONGrep = mongoose.model("ONGrep", ONGrepSchema);
 
 export default ONGrep;

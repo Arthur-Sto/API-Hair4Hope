@@ -36,7 +36,7 @@ export const findImage = async(req,res)=>{
         return res.status(400).send({message:"Não foi possível carregar a imagem"})
     }
 
-    console.log(req.originalUrl)
+    //console.log(req.originalUrl)
 
     const imgObj = Buffer.from(img.Arquivo, "base64")
 
