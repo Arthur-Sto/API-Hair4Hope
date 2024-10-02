@@ -38,9 +38,6 @@ export const findImage = async(req,res)=>{
 
     console.log(req.originalUrl)
 
-    let site = req.headers.host
-
-
     const imgObj = Buffer.from(img.Arquivo, "base64")
 
     return res.end(imgObj)

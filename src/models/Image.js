@@ -10,8 +10,6 @@ const ImageSchema = new Schema({
 
 ImageSchema.pre("save", async function(next){
     this.Nome = this._id + "."+this.Ext
-
-    
     return next()
 })
 export const Image = model("Image",ImageSchema)
