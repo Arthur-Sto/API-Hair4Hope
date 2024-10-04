@@ -23,23 +23,23 @@ const UserSchema = new mongoose.Schema({
   },
   tipoCabelo:{
     type:String,
-    required:true,
+    //required:true,
     enum: ['A1', 'A2', 'A3', 'B1', 'B2', 'B3', 'C1', 'C2', 'C3'],
   },
   Coloracao:{
     type:String,
-    required:true,
+   // required:true,
     enum: ['Escuro', 'Intermediário', 'Claro'],
   },
   AdicionaisCabelo:{
     type:String,
-    required: false,
+    //required: false,
     default: null,
   },
-  schedule: [
+  /*schedule: [
   
-  ],
-});
+  ],*/
+},{versionKey:false});
 
 UserSchema.pre("save", async function (next) {
   this.senha = await bcrypt.hash(this.senha, 10);

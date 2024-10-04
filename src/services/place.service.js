@@ -1,10 +1,9 @@
 import { Place } from "../models/Place.js";
 
+export const createPlaceService = (body) => Place.create(body)
 
-export const CreatePlaceService = (body) => Place.create(body)
+export const updatePlaceByIdService = (id,body) => Place.findByIdAndUpdate(id,body)
 
-export const UpdatePlaceService = (id,body)=> Place.findByIdAndUpdate({id},body)
+export const findPlaceByIdService = (id) => Place.findById(id)
 
-export const FindPlaceByIdService = (id) => Place.findById(id)
-
-export const FindAllPlacesService =() =>Place.find()
+export const deletePlaceByIdService = (id) => Place.findOneAndDelete({_id:id})

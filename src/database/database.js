@@ -1,10 +1,6 @@
-import mongoose from "mongoose";
+import mongoose from "mongoose"
+import dotenv from "dotenv"
 
-const connectDatabase = () => {
-
-  mongoose.connect(process.env.MONGODB_URI)
-  .then(() => console.log("MongoDB Atlas Está Conectado!"))
-  .catch((err) => console.log(`Encontramos um erro ao conectar com o MongoDB Atlas. Identificação: ${err}`));
-};
-
-export default connectDatabase;
+export const connectDatabase = () => {
+    mongoose.connect(process.env.MONGODB_URI).then(()=>console.log("Conectado na database")).catch(err=>console.log(`erro: ${err}`))
+}

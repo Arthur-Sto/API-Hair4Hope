@@ -43,5 +43,5 @@ const reqSchema = new Schema({
 })
 
 
-export const ONG = model("Place",ONGSchema)
+export const reqModel = model("Req",reqSchema)
 

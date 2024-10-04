@@ -23,11 +23,11 @@ const PlaceOwnerSchema = new mongoose.Schema({
   }
 });
 
-UserSchema.pre("save", async function (next) {
+PlaceOwnerSchema.pre("save", async function (next) {
   this.senha = await bcrypt.hash(this.senha, 10);
   next();
 });
 
-const PlaceOwner = mongoose.model("User", PlaceOwnerSchema);
+const PlaceOwner = mongoose.model("PlaceOwner", PlaceOwnerSchema);
 
 export default PlaceOwner;

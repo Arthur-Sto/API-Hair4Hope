@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
+import { Schema } from "mongoose";
 
 const ONGrepSchema = new mongoose.Schema({
   nome: {
@@ -25,14 +26,14 @@ const ONGrepSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  ongId: {
+  /*ongId: {
     type: Schema.Types.ObjectId,
     ref: "ong",
     required: true,
-  },
+  },*/
 });
 
-UserSchema.pre("save", async function (next) {
+ONGrepSchema.pre("save", async function (next) {
   this.senha = await bcrypt.hash(this.senha, 10);
   next();
 });

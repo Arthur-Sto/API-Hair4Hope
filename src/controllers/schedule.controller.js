@@ -45,10 +45,10 @@ export const updateSchedule = async (req, res) => {
 export const findAllScheduleByUser = async (req,res)=>{
     const userId = req.userId
     try{
-        const schedules = await findAllScheduleByUserService()
+        const schedules = await findAllScheduleByUserService(userId)
         return res.send({schedules})
     }catch(err){
-        return res.status(500).send({message:"Algo deu errado"})
+        return res.status(500).send({message:"Erro interno no servidor"})
     }
 }
 
@@ -61,7 +61,7 @@ export const findScheduleById = async(req,res)=>{
             return res.status(400).send({message:"ID inválido"})
         }
 
-        const schedule  =await findScheduleByIdService(scheduleId)
+        const schedule =await findScheduleByIdService(scheduleId)
         
 
         if(!schedule){
@@ -91,7 +91,7 @@ export const FindScheduleByUser = async (req,res) =>{
 export const deleteScheduleById = async(req,res)=>{
     const {id} = req.body
     try{
-        const del  =await deleteScheduleByIdService(userId)
+        const del  =await deleteScheduleByIdService(id)
 
         return res.send(del)
 
@@ -99,3 +99,6 @@ export const deleteScheduleById = async(req,res)=>{
         return res.status(500).send({message:"Algo deu errado"})
     }
 }
+
+
+

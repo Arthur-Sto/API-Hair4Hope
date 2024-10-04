@@ -17,5 +17,5 @@ const ONGSchema = new Schema({
 })
 
 
-export const ONG = model("ONG",ONGSchema)
+export const ONG = model("ong",ONGSchema)
 
