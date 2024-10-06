@@ -93,5 +93,15 @@ export const createMiddleware = (req, res, next) => {
             .status(400)
             .send({ message: "As senhas são diferentes." });
     }
+
+    if(!strongpass(senha)){
+        return res
+            .status(400)
+            .send({ message: "Senha muito fraca, tente adicionar números, letras maiúsculas ou até mesmo caractéres especiais" });
+    }
     return next()
 }
+
+const strongpass= (pass)=> /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d.*\d.*\d.*\d)(?=.*\d)(?=.*[_$!@$*&#-])[^ ]{8,}$/.test(pass)
+
+//console.log(strongpass("Meudeusnaonao1234"))

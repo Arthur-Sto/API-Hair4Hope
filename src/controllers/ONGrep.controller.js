@@ -4,6 +4,7 @@ import { findONGrepByIdService ,createONGrepService, deleteONGrepService,updateO
 import valid_email from "email-validator"
 import { Types } from "mongoose";
 import bcrypt from "bcrypt";
+import phone from "phone";
 
 
 
@@ -11,12 +12,18 @@ export const createONGrep = async(req,res)=>{ //O QUE FAZ COM O ONGID
 
     const {nome ,email, senha, Telefone, ongname, ongId} = req.body
 
+    
+
    
     if(!nome ||!email|| !senha|| !Telefone|| !ongname|| !ongId){
         return res.status(400).send({message:"Preencha todos os campos"})
     }
    
     try{
+        if(!phone(Telefone,{country:"br"})){
+            return res.status(400).send({message:"Telefone inválido"})
+        }
+
     const user = await createONGrepService(req.body)
 
     if(!user){

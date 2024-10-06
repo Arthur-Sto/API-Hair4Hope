@@ -1,5 +1,6 @@
 import {Types}from "mongoose";
 import { createImageService, findImageById ,findAllIdsService, DeleteImageService} from "../services/Image.service.js";
+import { fileTypeFromBuffer } from "file-type";
 
 
 export const createImage =  async (req,res) =>{
@@ -36,8 +37,12 @@ export const findImage = async(req,res)=>{
         return res.status(400).send({message:"Não foi possível carregar a imagem"})
     }
 
+    
 
     const imgObj = Buffer.from(img.Arquivo, "base64")
+
+    
+
 
     return res.end(imgObj)
 

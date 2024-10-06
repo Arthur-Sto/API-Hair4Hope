@@ -19,18 +19,18 @@ const ONGrepSchema = new mongoose.Schema({
   },
   Telefone: {
     type: String,
-    required: false,
+    required: true,
     default: null,
   },
   ongname: {
     type: String,
     required: true,
   },
-  /*ongId: {
+  ongId: {
     type: Schema.Types.ObjectId,
     ref: "ong",
     required: true,
-  },*/
+  },
 });
 
 ONGrepSchema.pre("save", async function (next) {

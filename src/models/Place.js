@@ -23,32 +23,42 @@ const PlaceSchema = new Schema({
     type: String,
     required: true
   },
+  cep:{},
   ong_parc: {
-    type: String,
+    type: Array,
     required: true
   },
-  dias_func: {
-    type: [String],
-    required: true,
-    enum: ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'],
-  },
-  horarios_func: [
-    {
-      dia: {
-        type: String,
-        required: true,
-        enum: ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'],
-      },
-      abertura: {
-        type: String,
-        required: true,
-      },
-      fechamento: {
-        type: String,
-        required: true,
-      },
+
+  horarios_func: {
+    Segunda: {
+      Abertura: { type: String, required: true },
+      Fechamento: { type: String, required: true },
     },
-  ],
+    Terca: {
+      Abertura: { type: String, required: true },
+      Fechamento: { type: String, required: true },
+    },
+    Quarta: {
+      Abertura: { type: String, required: true },
+      Fechamento: { type: String, required: true },
+    },
+    Quinta: {
+      Abertura: { type: String, required: true },
+      Fechamento: { type: String, required: true },
+    },
+    Sexta: {
+      Abertura: { type: String, required: true },
+      Fechamento: { type: String, required: true },
+    },
+    Sabado: {
+      Abertura: { type: String, required: true },
+      Fechamento: { type: String, required: true },
+    },
+    Domingo: {
+      Abertura: { type: String, required: true },
+      Fechamento: { type: String, required: true },
+    },
+  },
 })
 
 

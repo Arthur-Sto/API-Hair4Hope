@@ -8,6 +8,7 @@ export const createUser = async (req, res) => {
 
 
 
+
     try {
         const user = await createUserService({
             nome,

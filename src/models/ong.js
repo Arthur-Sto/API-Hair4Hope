@@ -12,7 +12,7 @@ const ONGSchema = new Schema({
     },
     estab_parc:{
         type:Array,
-        default:[]
+        default:[] //cnpj
     }
 })
 
