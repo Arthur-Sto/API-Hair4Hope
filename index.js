@@ -14,9 +14,11 @@ import PlaceOwnerRouter from "./src/routes/PlaceOwner.route.js";
 import imageRoute from "./src/routes/Image.route.js";
 import ONGrepRouter from "./src/routes/ONGrep.route.js";
 import scheduleRoute from "./src/routes/schedule.route.js";
+import jwt from "jsonwebtoken"
 import { phone } from "phone";
 import axios from "axios"
 import { cnpj } from "cpf-cnpj-validator";
+import placeRoute from "./src/routes/Place.route.js";
 
 dotenv.config()
 
@@ -32,8 +34,7 @@ app.use("/PlaceOwner", PlaceOwnerRouter)
 app.use("/image", imageRoute)
 app.use("/ONGrep", ONGrepRouter)
 app.use("/schedule", scheduleRoute)
-
-
+app.use("/place",placeRoute)
 
 
 
@@ -44,7 +45,14 @@ app.use("/schedule", scheduleRoute)
 app.listen(port, () => console.log(`Servidor rodando na porta ${port}`));
 
 
-//generateToken("66fe20d87fbe8a660e5f0dca")
+generateToken("66fe20d87fbe8a660e5f0dca")
+
+
+
+const enc = JSON.stringify({foto:"1234",nao:"1234"})
+const tok = generateToken(enc)
+
+
 
 //console.log(phone("11 988761028",{"country":"br"}))
 
@@ -56,3 +64,5 @@ app.listen(port, () => console.log(`Servidor rodando na porta ${port}`));
 
 //console.log(await ONG.find({estab_parc:{$in:[CNPJ]}}))
 
+//import { validateCEP } from "./src/services/Place.service.js";
+//console.log(await validateCEP("09540400"))

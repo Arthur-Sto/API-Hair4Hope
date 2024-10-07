@@ -26,11 +26,11 @@ const ONGrepSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  ongId: {
+  /*ongId: {
     type: Schema.Types.ObjectId,
     ref: "ong",
     required: true,
-  },
+  },*/
 });
 
 ONGrepSchema.pre("save", async function (next) {

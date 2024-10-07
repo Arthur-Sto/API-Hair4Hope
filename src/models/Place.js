@@ -23,7 +23,10 @@ const PlaceSchema = new Schema({
     type: String,
     required: true
   },
-  cep:{},
+  cep:{
+    type:String,
+  required:true
+},
   ong_parc: {
     type: Array,
     required: true
