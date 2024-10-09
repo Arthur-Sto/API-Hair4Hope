@@ -1,4 +1,4 @@
-import { createUser,LoginUser,updateUser,findAll, findById } from "../controllers/User.controller.js";
+import { createUser,LoginUser,updateUser,findAll, findById } from "../controllers/user.controller.js";
 import { Router } from "express";
 import { authMiddleware, createMiddleware } from "../middlewares/global.middleware.js";
 

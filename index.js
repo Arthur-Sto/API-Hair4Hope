@@ -49,7 +49,7 @@ app.use("/req", reqRoute)
 app.listen(port, () => console.log(`Servidor rodando na porta ${port}`));
 
 
-generateToken("66fe20d87fbe8a660e5f0dca")
+/*generateToken("66fe20d87fbe8a660e5f0dca")
 
 
 
@@ -81,3 +81,4 @@ const tok = generateToken(enc)
 
 //console.log(JSON.stringify(await findDistBetweenPlaces()))
 
+*/
