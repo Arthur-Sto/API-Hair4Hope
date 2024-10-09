@@ -1,4 +1,4 @@
-import { createImage, deleteImage, findImage,getAllImageIds } from "../controllers/Image.controller.js";
+import { createImage, deleteImage, findImage,getAllImageIds } from "../controllers/image.controller.js";
 import { Router } from "express";
 
 
