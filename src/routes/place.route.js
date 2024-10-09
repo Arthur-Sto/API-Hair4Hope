@@ -1,5 +1,5 @@
 
-import { createPlaceStepOne,createPlaceStepTwo, findAllPlaces } from "../controllers/Place.controller.js";
+import { createPlaceStepOne,createPlaceStepTwo, findAllPlaces } from "../controllers/place.controller.js";
 import { cnpjMiddleware,cepMiddleware,imgMiddleware, pass_acessoMiddleware } from "../middlewares/Place.middleware.js";
 
 import { Router } from "express";
