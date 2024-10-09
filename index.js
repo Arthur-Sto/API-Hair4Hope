@@ -10,7 +10,7 @@ const port = 3500
 import dotenv from "dotenv"
 import userRoute from "./src/routes/user.route.js";
 import PlaceOwnerRouter from "./src/routes/placeowner.js";
-import imageRoute from "./src/routes/image.route.js";
+import imageRoute from "./src/routes/Image.route.js";
 import ONGrepRouter from "./src/routes/ongrep.route.js";
 import scheduleRoute from "./src/routes/schedule.route.js";
 
