@@ -23,12 +23,12 @@ const scheduleSchema = new Schema({
       required: true,
       enum: ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'], 
     },
-    DayMonth: {
+   /* DayMonth: {
       type: Number,
       required: true,
       min: 1,
       max: 31, 
-    },
+    },*/
     Month: {
       type: Number,
       required: true,

@@ -15,6 +15,7 @@ const PlaceSchema = new Schema({
     type: String,
     required: true
   },
+  //a
   endereco: {
     type: String,
     required: true
@@ -23,13 +24,23 @@ const PlaceSchema = new Schema({
     type: String,
     required: true
   },
-  cep:{
-    type:String,
-  required:true
-},
+  cep: {
+    type: String,
+    required: true
+  },
+  
   ong_parc: {
     type: Array,
-    required: true
+    default: [],
+    required: false
+  },
+  desc: {
+    type: String,
+    required: false
+  },
+  dist: {
+    type: Number,
+    required: false
   },
 
   horarios_func: {

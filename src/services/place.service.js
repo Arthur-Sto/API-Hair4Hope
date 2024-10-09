@@ -10,7 +10,7 @@ export const findPlaceByIdService = (id) => Place.findById(id)
 
 export const deletePlaceByIdService = (id) => Place.findOneAndDelete({ _id: id })
 
-
+export const findAllPlacesService =() => Place.find()
 
 export const validateCEP = async (cep) => {
     const url = `https://cep.awesomeapi.com.br/json/${cep}`
@@ -23,3 +23,23 @@ export const validateCEP = async (cep) => {
     }
 }
 
+/*export const getDistanceFromLatAndLong = async(lat1,lon1,lat2,lon2)=>{
+    const apiUrl = `https://router.project-osrm.org/route/v1/match/${lat1},${lon1};${lat2},${lon2}`
+    const res = (await axios.get(apiUrl))
+    
+    return res.status==200 ? res.data:false
+}
+export const findDistBetweenPlaces =async (body)=>{
+    let Places = await Place.find()
+    let response = []
+
+    
+
+    Places.forEach(async item=>{
+        item.dist = 5
+        
+        response = [...response, item ]
+    })
+    
+    return response
+}*/

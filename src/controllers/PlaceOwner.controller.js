@@ -114,7 +114,7 @@ export const PlaceOwnerLogin = async (req, res) => {
 
         const token = generateToken(user._id)
 
-        return res.send({ message: "Usuário logado", token })
+        return res.send({ message: "Usuário logado", token,userId:user._id  })
     } catch (err) {
         return res.status(500).send({ message: `Erro: ${err.toString()}` })
     }

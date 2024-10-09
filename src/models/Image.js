@@ -10,7 +10,9 @@ const ImageSchema = new Schema({
 
 ImageSchema.pre("save", async function(next){
     this.Nome = this._id + "."+this.Ext
-    const fileType = await fileTypeFromBuffer(Buffer.from(this.Arquivo))
+
+    const fileType = await fileTypeFromBuffer(Buffer.from(this.Arquivo,"base64"))
+
     this.Ext = fileType.ext
 
     return next()

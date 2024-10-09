@@ -1,11 +1,11 @@
-import mongoose from "mongoose";
-import { createScheduleService, findAllScheduleByUserService, updateScheduleService, findScheduleByIdService, findScheduleByUserService, deleteScheduleByIdService } from "../services/schedule.service.js";
+import mongoose, { Types } from "mongoose";
+import { createScheduleService, findAllScheduleByUserService, updateScheduleService, findScheduleByIdService, findScheduleByUserService, deleteScheduleByIdService, findHorariosByPlaceIdService, getIntervalos } from "../services/schedule.service.js";
 
 export const createSchedule = async (req, res) => {
     const id = req.userId
-    const { PlaceName, Day, DayMonth, Month, Horario } = req.body
+    const { PlaceName, Day, Month, Horario,PlaceId } = req.body
     try {
-        if (!PlaceName || !Day || !DayMonth || !Month || !Horario) {
+        if (!PlaceName || !Day || !Month || !Horario|| !PlaceId) {
 
             return res.status(400).send({ message: "Preencha todos os campos" })
 
@@ -98,6 +98,31 @@ export const deleteScheduleById = async(req,res)=>{
     }catch(err){
         return res.status(500).send({message:"Algo deu errado"})
     }
+}
+
+
+
+export const findHorariosByPlaceId = async (req,res)=>{
+    //http:localhost/schedule/:idplace/:diasemana
+    const PlaceId = req.params.placeid 
+    const diasemana = req.params.diasemana
+
+    if(!Types.ObjectId.isValid(PlaceId)){
+        res.status(404).send({message:"ID inválido"})
+    }
+
+    const horarios = await findHorariosByPlaceIdService(PlaceId)
+
+    if(horarios.horarios_func && horarios.horarios_func[diasemana]){
+
+        let intervalos = getIntervalos(horarios.horarios_func[diasemana])
+
+        console.log(intervalos)
+
+        return res.send({message:"Horário carregado...",...horarios.horarios_func[diasemana], success:true, horarios:intervalos})
+    }
+
+    return res.status(400).send({message:"Algo deu errado",success:false})
 }
 
 

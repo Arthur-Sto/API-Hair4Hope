@@ -19,6 +19,9 @@ import { phone } from "phone";
 import axios from "axios"
 import { cnpj } from "cpf-cnpj-validator";
 import placeRoute from "./src/routes/Place.route.js";
+import ongRouter from "./src/routes/ong.route.js";
+import reqRoute from "./src/routes/req.route.js";
+
 
 dotenv.config()
 
@@ -35,7 +38,8 @@ app.use("/image", imageRoute)
 app.use("/ONGrep", ONGrepRouter)
 app.use("/schedule", scheduleRoute)
 app.use("/place",placeRoute)
-
+app.use("/ong",ongRouter)
+app.use("/req", reqRoute)
 
 
 
@@ -64,5 +68,16 @@ const tok = generateToken(enc)
 
 //console.log(await ONG.find({estab_parc:{$in:[CNPJ]}}))
 
-//import { validateCEP } from "./src/services/Place.service.js";
+///import { findDistBetweenPlaces, validateCEP } from "./src/services/Place.service.js";
 //console.log(await validateCEP("09540400"))
+
+//import { findOngByNameService } from "./src/services/ong.service.js";
+
+//console.log(await findOngByNameService("pior que é né veyr"))
+
+//import { getDistanceFromLatAndLong } from "./src/services/Place.service.js";
+
+//console.log("sex:" ,await findAllPlacesServices())
+
+//console.log(JSON.stringify(await findDistBetweenPlaces()))
+

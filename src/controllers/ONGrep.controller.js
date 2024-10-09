@@ -5,20 +5,31 @@ import valid_email from "email-validator"
 import { Types } from "mongoose";
 import bcrypt from "bcrypt";
 import { phone } from "phone";
+import { findOngByNameService } from "../services/ong.service.js";
 
 
 
 export const createONGrep = async (req, res) => { //O QUE FAZ COM O ONGID
     try {
-        const { nome, email, senha, Telefone, ongname, ongId } = req.body
-
-
+        let { nome, email, senha, Telefone, ongname, ongId } = req.body
 
 
         if (!nome || !email || !senha || !Telefone || !ongname || !ongId) {
             return res.status(400).send({ message: "Preencha todos os campos" })
         }
 
+        /*if(!Types.ObjectId.isValid(ongId) ){
+           return res.status(404).send({message:"ONG não encontrada"})
+        }*/
+
+        const findOng =await findOngByNameService(ongname)
+
+        if(findOng.length==0){
+            return res.status(400).send({ message: "Ong não encontrada" })
+        }
+
+        req.body.ongId = findOng[1]._id
+        
 
         if (!phone(Telefone, { country: "BR" }).isValid) {
             return res.status(400).send({ message: "Telefone inválido" })
@@ -29,6 +40,7 @@ export const createONGrep = async (req, res) => { //O QUE FAZ COM O ONGID
         if (!user) {
             return res.status(400).send({ message: "Algo deu errado" })
         }
+        
         return res.send({ message: "Representante criado", user, email })
     } catch (err) {
         console.log(err)
@@ -86,7 +98,7 @@ export const ONGrepLogin = async (req, res) => {
 
         const token =  generateToken(user._id.toString())
 
-        return res.send({ message: "Representante logado.", token, id: user._id })
+        return res.send({ message: "Representante logado.", token, userId:user._id  })
 
     } catch (err) {
         return res.status(500).send({ message: "Erro interno" })
