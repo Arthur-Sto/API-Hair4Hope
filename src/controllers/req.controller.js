@@ -1,6 +1,6 @@
 import { Types } from "mongoose";
 import { createReqService, findReqByPlaceIdService, updateReqByPlaceIdService } from "../services/req.service.js";
-import { createImageService } from "../services/Image.service.js";
+import { createImageService } from "../services/image.service.js";
 import { isImage } from "../middlewares/Place.middleware.js";
 
 export const createReq = async (req, res) => {

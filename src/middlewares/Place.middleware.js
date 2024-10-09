@@ -1,10 +1,10 @@
-import { validateCEP } from "../services/Place.service.js";
+import { validateCEP } from "../services/place.service.js";
 
 import { findOngByCNPJService } from "../services/ong.service.js";
 
 import { cnpj as CNPJchecker } from "cpf-cnpj-validator";
 
-import { createImageService } from "../services/Image.service.js";
+import { createImageService } from "../services/image.service.js";
 import { fileTypeFromBuffer } from "file-type";
 
 

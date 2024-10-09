@@ -1,4 +1,4 @@
-import { Image } from "../models/Image.js";
+import { Image } from "../models/image.js";
 
 export const createImageService = (body) => Image.create(body)
 

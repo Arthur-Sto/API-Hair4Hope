@@ -1,4 +1,4 @@
-import { Place } from "../models/Place.js";
+import { Place } from "../models/place.js";
 import axios from "axios"
 
 

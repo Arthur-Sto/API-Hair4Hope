@@ -1,6 +1,6 @@
-import User from '../models/User.js';
-import ONGrep from '../models/ONGRep.js';
-import PlaceOwner from '../models/PlaceOwner.js';
+import User from '../models/user.js';
+import ONGrep from '../models/ongrep.js';
+import PlaceOwner from '../models/placeowner.js';
 
 import jwt from 'jsonwebtoken';
 

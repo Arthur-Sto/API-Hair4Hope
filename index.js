@@ -8,17 +8,13 @@ const port = 3500
 
 
 import dotenv from "dotenv"
-import { generateToken } from "./src/services/globalAuth.service.js";
 import userRoute from "./src/routes/user.route.js";
-import PlaceOwnerRouter from "./src/routes/PlaceOwner.route.js";
-import imageRoute from "./src/routes/Image.route.js";
-import ONGrepRouter from "./src/routes/ONGrep.route.js";
+import PlaceOwnerRouter from "./src/routes/placeowner.js";
+import imageRoute from "./src/routes/image.route.js";
+import ONGrepRouter from "./src/routes/ongrep.route.js";
 import scheduleRoute from "./src/routes/schedule.route.js";
-import jwt from "jsonwebtoken"
-import { phone } from "phone";
-import axios from "axios"
-import { cnpj } from "cpf-cnpj-validator";
-import placeRoute from "./src/routes/Place.route.js";
+
+import placeRoute from "./src/routes/place.route.js";
 import ongRouter from "./src/routes/ong.route.js";
 import reqRoute from "./src/routes/req.route.js";
 

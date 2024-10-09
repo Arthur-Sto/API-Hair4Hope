@@ -1,4 +1,4 @@
-import { createPlaceOwner,updatePlaceOwner,findPlaceOwnerById, PlaceOwnerLogin, deleteSchedule} from "../controllers/PlaceOwner.controller.js";
+import { createPlaceOwner,updatePlaceOwner,findPlaceOwnerById, PlaceOwnerLogin, deleteSchedule} from "../controllers/placeowner.controller.js";
 import { Router } from "express";
 import { authMiddleware, createMiddleware } from "../middlewares/global.middleware.js";
 

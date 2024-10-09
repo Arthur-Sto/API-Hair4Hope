@@ -1,5 +1,5 @@
 import {Types}from "mongoose";
-import { createImageService, findImageById ,findAllIdsService, DeleteImageService} from "../services/Image.service.js";
+import { createImageService, findImageById ,findAllIdsService, DeleteImageService} from "../services/image.service.js";
 import { fileTypeFromBuffer } from "file-type";
 
 
