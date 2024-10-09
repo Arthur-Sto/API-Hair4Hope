@@ -4,7 +4,7 @@ import { findOngByCNPJService } from "../services/ong.service.js";
 
 import { cnpj as CNPJchecker } from "cpf-cnpj-validator";
 
-import { createImageService } from "../services/image.service.js";
+import { createImageService } from "../services/Image.service.js";
 import { fileTypeFromBuffer } from "file-type";
 
 
