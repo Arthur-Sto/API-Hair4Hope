@@ -2,7 +2,7 @@
 import { Router } from "express";
 import { authMiddleware, createMiddleware } from "../middlewares/global.middleware.js";
 
-import {ONGrepLogin,createONGrep,findONGrepById,updateONGrep }  from "../controllers/ongrep.controller.js";
+import {ONGrepLogin,createONGrep,findONGrepById,updateONGrep }  from "../controllers/ONGrep.controller.js";
 
 const ONGrepRouter = Router()
 
