@@ -20,7 +20,8 @@ const PlaceOwnerSchema = new mongoose.Schema({
     type: String,
     required: false,
     default: null,
-  }
+  },
+  verified:{type:Boolean,default:false}
 });
 
 PlaceOwnerSchema.pre("save", async function (next) {

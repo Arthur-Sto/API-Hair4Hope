@@ -17,6 +17,8 @@ import scheduleRoute from "./src/routes/schedule.route.js";
 import placeRoute from "./src/routes/place.route.js";
 import ongRouter from "./src/routes/ong.route.js";
 import reqRoute from "./src/routes/req.route.js";
+import verifyRoute from "./src/routes/verify.route.js";
+import { verifyModel } from "./src/models/verifyemail.js";
 
 
 dotenv.config()
@@ -36,6 +38,7 @@ app.use("/schedule", scheduleRoute)
 app.use("/place",placeRoute)
 app.use("/ong",ongRouter)
 app.use("/req", reqRoute)
+app.use("/verify",verifyRoute)
 
 
 

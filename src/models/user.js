@@ -36,9 +36,8 @@ const UserSchema = new mongoose.Schema({
     //required: false,
     default: null,
   },
-  /*schedule: [
-  
-  ],*/
+
+  verified:{type:Boolean,default:false}
 },{versionKey:false});
 
 UserSchema.pre("save", async function (next) {

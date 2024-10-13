@@ -2,6 +2,7 @@
 import { createUserService, updateUserService, findUserByIdService, findAllUserService, loginService, generateToken } from "../services/globalAuth.service.js";
 import { validate } from "email-validator";
 import bcrypt from "bcrypt"
+import { sendVerificationCode } from "../services/verify.service.js";
 
 export const createUser = async (req, res) => {
     const { nome, email, senha } = req.body;
@@ -20,7 +21,9 @@ export const createUser = async (req, res) => {
             return res.status(400).send({ message: "Erro ao criar usuario" });
         }
 
-        return res.send({ message: "Usuário criado com sucesso, faça o login.", user: { id: user._id, email, nome },email })
+        await sendVerificationCode(email)
+
+        return res.send({ message: `Cadastro efetuado com sucesso, verifique seu e-mail.`, user: { id: user._id, email, nome },email })
 
     } catch (erro) {
         return res.status(500).send({ message: `Erro interno: ${erro.toString()}` })
