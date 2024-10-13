@@ -23,7 +23,9 @@ export const createUser = async (req, res) => {
 
         await sendVerificationCode(email)
 
-        return res.send({ message: `Cadastro efetuado com sucesso, verifique seu e-mail.`, user: { id: user._id, email, nome },email })
+       const shortMail = `${email.substring(0,3)}...${email.substring(email.indexOf("@"),email.length)}`
+
+        return res.send({verifyMessage:`Cadastro efetuado com sucesso, verifique o email ${shortMail}`, message:"Cadastro efetuado com sucesso" , user: { id: user._id, email, nome },email })
 
     } catch (erro) {
         return res.status(500).send({ message: `Erro interno: ${erro.toString()}` })

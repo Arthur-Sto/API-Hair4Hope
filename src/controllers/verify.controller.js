@@ -12,18 +12,20 @@ export const validateCode = async (req, res) => {
 
     code = code.replaceAll("-", "")
 
+    //console.log(tipo, typeof tipo, tipo.length, verifyServices[tipo])
+
 
     if (!Object.keys(verifyServices).includes(tipo)) {
         return res.status(400).send({ message: "Algo deu errado" })
     }
 
-   
-
 
     const verifiedUser = await verifyServices[tipo](email)
 
+    
+
     if (!verifiedUser) {
-        res.status(400).send({ message: "Algo deu errado1" })
+        return res.status(400).send({ message: "Algo deu errado" })
     }
 
     const validatedCode = await validateCodeService(email,code)
@@ -34,7 +36,6 @@ export const validateCode = async (req, res) => {
 
     return res.send({ message: "Email verificado com sucesso!", success: true })
 
-
-
-
 }
+
+
