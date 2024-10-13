@@ -2,6 +2,7 @@ import { transport } from "../../emailConfig.js"
 import ONGrep from "../models/ongrep.js"
 import PlaceOwner from "../models/placeowner.js"
 import { verifyModel } from "../models/verifyemail.js"
+import  User  from "../models/user.js"
 
 
 const generateCode = ()=>{
