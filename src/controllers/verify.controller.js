@@ -1,3 +1,4 @@
+import { verifyModel } from "../models/verifyemail.js"
 import { sendVerificationCode, validateCodeService, verifyONGrepByEmailService, verifyPlaceOwnerByEmailService, verifyUserByEmailService } from "../services/verify.service.js"
 
 
@@ -11,9 +12,12 @@ export const validateCode = async (req, res) => {
             "2": verifyPlaceOwnerByEmailService,
             "3": verifyONGrepByEmailService
         }
-
         code = code.replaceAll("-", "")
+        code=code.replaceAll(" ","")
+        
         email = email.replaceAll(" ","")
+
+        console.log(email,code)
 
         //console.log(tipo, typeof tipo, tipo.length, verifyServices[tipo])
 
@@ -34,6 +38,7 @@ export const validateCode = async (req, res) => {
         const validatedCode = await validateCodeService(email, code)
 
         console.log("code", validatedCode)
+        console.log(await verifyModel.find({email:'h4h.verify@gmail.com',code:'1y6g8kfnd5xa'}))
 
         if (!validatedCode) {
             return res.status(400).send({ message: "Código inválido" })
