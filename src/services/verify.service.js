@@ -9,12 +9,12 @@ const generateCode = ()=>{
     return "#-#-#-#".replaceAll("#",()=>Math.floor(Date.now() * Math.random()).toString(36).substring(0,3))
 }
 
-export const sendVerificationCode = async(email)=>{
+export const sendVerificationCode = async(email,userId)=>{
     let code = generateCode()
     let emailCheck = await verifyModel.findOne({email})
     
     if(!emailCheck){
-        emailCheck = await verifyModel.create({email,code})
+        emailCheck = await verifyModel.create({email,code,userId})
     }
 
     code = emailCheck.code

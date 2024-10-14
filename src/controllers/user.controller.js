@@ -7,9 +7,6 @@ import { sendVerificationCode } from "../services/verify.service.js";
 export const createUser = async (req, res) => {
     const { nome, email, senha } = req.body;
 
-
-
-
     try {
         const user = await createUserService({
             nome,
@@ -21,11 +18,11 @@ export const createUser = async (req, res) => {
             return res.status(400).send({ message: "Erro ao criar usuario" });
         }
 
-        await sendVerificationCode(email)
+        await sendVerificationCode(email,user._id)
 
-       const shortMail = `${email.substring(0,3)}...${email.substring(email.indexOf("@"),email.length)}`
+      // const shortMail = `${email.substring(0,3)}...${email.substring(email.indexOf("@"),email.length)}`
 
-        return res.send({verifyMessage:`Cadastro efetuado com sucesso, verifique o email ${shortMail}`, message:"Cadastro efetuado com sucesso" , user: { id: user._id, email, nome },email })
+        return res.send({verifyMessage:`Cadastro efetuado com sucesso, verifique o email ${email}`, message:"Cadastro efetuado com sucesso", userId:user._id, email, nome })
 
     } catch (erro) {
         return res.status(500).send({ message: `Erro interno: ${erro.toString()}` })

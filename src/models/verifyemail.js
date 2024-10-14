@@ -1,9 +1,10 @@
-import {model, Schema} from "mongoose"
+import {model, Schema, SchemaTypes} from "mongoose"
 
 const emailVerifySchema = new Schema({
     email:{type:String,required:true},
-    code:{type:String,required:true}
-},{expireAfterSeconds:150})
+    code:{type:String,required:true},
+    userId:{type:SchemaTypes.ObjectId,required:true}
+},{expireAfterSeconds:150, expires:150})
 
 emailVerifySchema.pre("save",async function(next){
     this.code = this.code.replaceAll("-","")
