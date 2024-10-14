@@ -13,6 +13,7 @@ export const validateCode = async (req, res) => {
         }
 
         code = code.replaceAll("-", "")
+        email = email.replaceAll(" ","")
 
         //console.log(tipo, typeof tipo, tipo.length, verifyServices[tipo])
 
@@ -22,7 +23,7 @@ export const validateCode = async (req, res) => {
         }
 
 
-        const verifiedUser = await verifyServices[tipo](email.replaceAll(" ",""))
+        const verifiedUser = await verifyServices[tipo](email)
 
 
 
@@ -32,12 +33,16 @@ export const validateCode = async (req, res) => {
 
         const validatedCode = await validateCodeService(email, code)
 
+        console.log("code", validatedCode)
+
         if (!validatedCode) {
             return res.status(400).send({ message: "Código inválido" })
         }
 
+        
 
-        return res.send({ message: "Email verificado com sucesso!", success: true, user: validatedCode.userId.toString() })
+
+        return res.send({ message: "Email verificado com sucesso!", success: true, user: validatedCode.userId.toString(),email })
     } catch (err) {
         return res.status(500).send({ message: "Erro interno no servidor, tente novamente mais tarde." })
     }
