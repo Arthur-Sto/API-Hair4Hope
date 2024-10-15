@@ -31,7 +31,8 @@ const ONGrepSchema = new mongoose.Schema({
     ref: "ong",
     required: true,
   },
-  verified:{type:Boolean,default:false}
+  verified:{type:Boolean,default:false},
+  pass_acesso:{type:String, required:false}
 });
 
 ONGrepSchema.pre("save", async function (next) {

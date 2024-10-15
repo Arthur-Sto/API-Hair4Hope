@@ -5,13 +5,13 @@ import valid_email from "email-validator"
 import { Types } from "mongoose";
 import bcrypt from "bcrypt";
 import { phone } from "phone";
-import { findOngByNameService } from "../services/ong.service.js";
+import { findOngByIdService, findOngByNameService } from "../services/ong.service.js";
 import { sendVerificationCode } from "../services/verify.service.js";
 
 
 export const createONGrep = async (req, res) => { //O QUE FAZ COM O ONGID
     try {
-        let { nome, email, senha, Telefone, ongname, ongId } = req.body
+        let { nome, email, senha, Telefone, ongname, ongId, pass_acesso } = req.body
 
 
         if (!nome || !email || !senha || !Telefone || !ongname || !ongId) {
@@ -33,6 +33,17 @@ export const createONGrep = async (req, res) => { //O QUE FAZ COM O ONGID
 
         if (!phone(Telefone, { country: "BR" }).isValid) {
             return res.status(400).send({ message: "Telefone inválido" })
+        }
+
+
+        const ong = await findOngByIdService(ongId)
+
+        if(!ong){
+            return res.status(400).send({ message: "ONG não disponível" })
+        }
+
+        if(ong.pass_acesso != pass_acesso){
+            return res.status(400).send({ message: "Código de acesso inválido, consulte algum administrador" })
         }
 
         const user = await createONGrepService(req.body)

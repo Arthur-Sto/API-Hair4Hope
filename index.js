@@ -57,9 +57,11 @@ app.get("/fakeroute",async (req,res)=>{
 app.listen(port, () => console.log(`Servidor rodando na porta ${port}`));
 
 
+/*import { ONG } from "./src/models/ong.js";
+const creation = await ONG.create({Nome:"a",Desc:"a",estab_parc:"a"})
+console.log(creation)
 
-
-/*generateToken("66fe20d87fbe8a660e5f0dca")
+generateToken("66fe20d87fbe8a660e5f0dca")
 
 
 

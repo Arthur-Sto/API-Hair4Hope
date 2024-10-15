@@ -22,7 +22,7 @@ export const validateCode = async (req, res) => {
 
         //console.log(tipo, typeof tipo, tipo.length, verifyServices[tipo])
 
-
+    
         if (!Object.keys(verifyServices).includes(tipo)) {
             return res.status(400).send({ message: "Algo deu errado" })
         }
@@ -30,7 +30,7 @@ export const validateCode = async (req, res) => {
 
         const verifiedUser = await verifyServices[tipo](email)
 
-
+        
 
         if (!verifiedUser) {
             return res.status(400).send({ message: "Algo deu errado" })

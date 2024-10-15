@@ -8,7 +8,7 @@ const emailVerifySchema = new Schema({
     createdAt: {
         type: Date,
         index: { 
-          expires: '2m'
+          expires: '4m'
         },
         default: Date.now
     }

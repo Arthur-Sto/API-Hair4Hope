@@ -23,7 +23,7 @@ export const sendVerificationCode = async(email,userId)=>{
         to:email, subject:"Não responda", html:`Seu código de verificação é: <b>${code}</b>`
     })
 
-    console.log(sentEmail)
+    //console.log(sentEmail)
 }
 
 export const validateCodeService = (email,code) =>  verifyModel.findOneAndDelete({email,code})

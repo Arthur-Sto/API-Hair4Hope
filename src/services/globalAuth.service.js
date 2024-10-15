@@ -39,7 +39,6 @@ export const findONGrepByIdService = (id)=>ONGrep.findById(id)
 export const ONGrepLoginService = (email)=>ONGrep.findOne({email:email}).select("+senha")
 
 
-
 //-------------------------------------------PLACEOWNER----------------------------------------------\\
 export const createPlaceOwnerService = (body) => PlaceOwner.create(body)
 
