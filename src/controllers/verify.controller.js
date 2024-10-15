@@ -16,6 +16,7 @@ export const validateCode = async (req, res) => {
         code=code.replaceAll(" ","")
         
         email = email.replaceAll(" ","")
+        email=email.toLowerCase()
 
         console.log(email,code)
 
@@ -37,7 +38,7 @@ export const validateCode = async (req, res) => {
 
         const validatedCode = await validateCodeService(email, code)
 
-        console.log("code", validatedCode)
+        //console.log(await verifyModel.find())
         //console.log(await verifyModel.find({email:'h4h.verify@gmail.com',code:'1y6g8kfnd5xa'}))
 
         if (!validatedCode) {

@@ -15,7 +15,7 @@ export const findUserByIdService = (id) => User.findById(id);
 
 export const updateUserService = (id, body) => User.findOneAndUpdate({_id: id}, body);
 
-
+export const setHairByIdService = (id,infos) =>User.findOneAndUpdate({_id:id},infos)
 
 export const generateToken =  (id) => {
     const token = jwt.sign({id}, process.env.SECRET_JWT, {expiresIn:86400 })

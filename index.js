@@ -19,6 +19,7 @@ import ongRouter from "./src/routes/ong.route.js";
 import reqRoute from "./src/routes/req.route.js";
 import verifyRoute from "./src/routes/verify.route.js";
 import { verifyModel } from "./src/models/verifyemail.js";
+import { findAllOngsService } from "./src/services/ong.service.js";
 
 
 dotenv.config()
@@ -40,12 +41,22 @@ app.use("/ong",ongRouter)
 app.use("/req", reqRoute)
 app.use("/verify",verifyRoute)
 
-
+app.get("/fakeroute",async (req,res)=>{
+    const time = Date.now()
+    async function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+      }
+      
+      await sleep(1000 * Math.floor((Math.random()*(7-1) + 1)))
+      res.send({message:"teste", espera:(new Date(Date.now()-time).getSeconds())})
+})
 
 
 
 
 app.listen(port, () => console.log(`Servidor rodando na porta ${port}`));
+
+
 
 
 /*generateToken("66fe20d87fbe8a660e5f0dca")

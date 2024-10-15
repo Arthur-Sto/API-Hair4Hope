@@ -5,6 +5,7 @@ const ONGSchema = new Schema({
     Nome: {
         type: String,
         required: true,
+        unique:true
       },
     Desc:{
         type:String,

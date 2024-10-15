@@ -1,8 +1,9 @@
 
-import { createUserService, updateUserService, findUserByIdService, findAllUserService, loginService, generateToken } from "../services/globalAuth.service.js";
+import { createUserService, updateUserService, findUserByIdService, findAllUserService, loginService, generateToken, setHairByIdService } from "../services/globalAuth.service.js";
 import { validate } from "email-validator";
 import bcrypt from "bcrypt"
 import { sendVerificationCode } from "../services/verify.service.js";
+import { Types } from "mongoose";
 
 export const createUser = async (req, res) => {
     const { nome, email, senha } = req.body;
@@ -18,16 +19,36 @@ export const createUser = async (req, res) => {
             return res.status(400).send({ message: "Erro ao criar usuario" });
         }
 
-        await sendVerificationCode(email,user._id)
+        await sendVerificationCode(email, user._id)
 
-      // const shortMail = `${email.substring(0,3)}...${email.substring(email.indexOf("@"),email.length)}`
+        // const shortMail = `${email.substring(0,3)}...${email.substring(email.indexOf("@"),email.length)}`
 
-        return res.send({verifyMessage:`Cadastro efetuado com sucesso, verifique o email ${email}`, message:"Cadastro efetuado com sucesso", userId:user._id, email, nome })
+        return res.send({ verifyMessage: `Cadastro efetuado com sucesso, verifique o email ${email}`, message: "Cadastro efetuado com sucesso", userId: user._id, email, nome })
 
     } catch (erro) {
         return res.status(500).send({ message: `Erro interno: ${erro.toString()}` })
     }
 }
+
+
+export const setUserHair = async (req, res) => {
+    let { tipoCabelo, Coloracao, AdicionaisCabelo, userId } = req.body
+    console.log(req.body)
+    try {
+        if(!Types.ObjectId.isValid(userId)){
+            return res.status(400).send({message:"ID de usuário inválido"})
+        }
+        const hairSet = await setHairByIdService(userId, { tipoCabelo, Coloracao, AdicionaisCabelo })
+
+        if (!hairSet) {
+            return res.status(400).send({ message: "Não foi possível adicionar as informações de cabelo, tente novamente mais tarde" })
+        }
+        return res.send({ message: "Tudo certo", token: generateToken(userId), userId, email:hairSet.email })
+    } catch (err) {
+        res.status(500).send({ message: "Erro interno no servidor." })
+    }
+}
+
 
 export const findAll = async (req, res) => {
     try {
@@ -100,7 +121,7 @@ export const LoginUser = async (req, res) => {
 
         const token = generateToken(user._id)
 
-        return res.send({ message: "Usuário logado", token,userId:user._id })
+        return res.send({ message: "Usuário logado", token, userId: user._id })
     } catch (err) {
         return res.status(500).send({ message: "Erro interno" })
     }

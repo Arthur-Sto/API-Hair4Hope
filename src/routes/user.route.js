@@ -1,4 +1,4 @@
-import { createUser,LoginUser,updateUser,findAll, findById } from "../controllers/user.controller.js";
+import { createUser,LoginUser,updateUser,findAll, findById, setUserHair } from "../controllers/user.controller.js";
 import { Router } from "express";
 import { authMiddleware, createMiddleware } from "../middlewares/global.middleware.js";
 
@@ -10,6 +10,7 @@ userRoute.get("/", findAll)
 userRoute.post("/create",createMiddleware,createUser)
 userRoute.post("/update",authMiddleware,updateUser)
 userRoute.get("/:id",findById)
+userRoute.post("/sethair",setUserHair)
 
 userRoute.post("/login", LoginUser)
 

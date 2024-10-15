@@ -6,7 +6,7 @@ import { Types } from "mongoose";
 import bcrypt from "bcrypt";
 import { phone } from "phone";
 import { findOngByNameService } from "../services/ong.service.js";
-
+import { sendVerificationCode } from "../services/verify.service.js";
 
 
 export const createONGrep = async (req, res) => { //O QUE FAZ COM O ONGID
@@ -40,8 +40,12 @@ export const createONGrep = async (req, res) => { //O QUE FAZ COM O ONGID
         if (!user) {
             return res.status(400).send({ message: "Algo deu errado" })
         }
-        
-        return res.send({ message: "Representante criado", user, email })
+
+        await sendVerificationCode(email,user._id)
+    
+        return res.send({ verifyMessage:`Cadastro efetuado com sucesso, verifique o email ${email}`, message: "Sucesso ao criar o perfil", userId:user._id, user:user,email,nome })
+
+   
     } catch (err) {
         console.log(err)
         return res.status(500).send({ message: `Erro interno no servidor: ${err.toString()}` })
