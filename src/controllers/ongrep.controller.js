@@ -24,11 +24,11 @@ export const createONGrep = async (req, res) => { //O QUE FAZ COM O ONGID
 
         const findOng =await findOngByNameService(ongname)
 
-        if(findOng.length==0){
+        if(!findOng){
             return res.status(400).send({ message: "Ong não encontrada" })
         }
 
-        req.body.ongId = findOng[1]._id
+        req.body.ongId = findOng._id
         
 
         if (!phone(Telefone, { country: "BR" }).isValid) {

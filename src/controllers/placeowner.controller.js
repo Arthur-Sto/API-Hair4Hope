@@ -3,6 +3,7 @@ import bcrypt from "bcrypt"
 import { Types } from "mongoose";
 import { deleteScheduleByIdService } from "../services/schedule.service.js";
 import {phone} from "phone";
+import { sendVerificationCode } from "../services/verify.service.js";
 
 
 
@@ -27,13 +28,14 @@ export const createPlaceOwner = async (req, res) => {
         if (!PlaceOwner) {
             return res.status(400).send({ message: "Criação de perfil deu errado" })
         }
-
+        await sendVerificationCode(email,PlaceOwner._id)
         
 
-        return res.send({ message: "Sucesso ao criar o perfil", user:PlaceOwner,email })
+        return res.send({ verifyMessage:`Cadastro efetuado com sucesso, verifique o email ${email}`, message: "Sucesso ao criar o perfil", userId:PlaceOwner._id, user:PlaceOwner,email,nome })
 
     } catch (err) {
-        return res.status(500).send({ message: "Erro interno" })
+        console.log(err)
+        return res.status(500).send({ message: (err.code == 11000 ? "Email já cadastrado": "Erro interno" )})
     }
 }
 

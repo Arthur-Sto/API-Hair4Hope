@@ -38,7 +38,7 @@ export const validateCode = async (req, res) => {
         const validatedCode = await validateCodeService(email, code)
 
         console.log("code", validatedCode)
-        console.log(await verifyModel.find({email:'h4h.verify@gmail.com',code:'1y6g8kfnd5xa'}))
+        //console.log(await verifyModel.find({email:'h4h.verify@gmail.com',code:'1y6g8kfnd5xa'}))
 
         if (!validatedCode) {
             return res.status(400).send({ message: "Código inválido" })
