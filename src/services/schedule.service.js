@@ -1,7 +1,7 @@
 import { Place } from "../models/place.js";
 import { Schedule } from "../models/schedule.js";
 
-export const createScheduleService = (body) => Schedule.create(body)
+export const createScheduleService = (body) =>  Schedule.create(body)
 
 export const updateScheduleService = (id, body) => Schedule.updateOne({ UserId: id }, body)
 
@@ -12,6 +12,8 @@ export const findAllScheduleByUserService = (id) => Schedule.find({ UserId: id }
 export const findScheduleByIdService = (id) => Schedule.findById(id)
 
 export const findScheduleByUserService = (id) => Schedule.findOne({ UserId: id })
+
+export const findSchedulesByUserService = (id) => Schedule.find({ UserId: id }).populate("PlaceId")
 
 
 export const findHorariosByPlaceIdService = (PlaceId) => Place.findOne({ _id: PlaceId })

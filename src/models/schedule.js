@@ -8,19 +8,23 @@ const scheduleSchema = new Schema({
         required: true,
         unique: true
     },
-    PlaceName: {
+    /*PlaceName: {
       type: String,
       required: true,
-    },
+    },*/
     PlaceId:{
         type: Schema.Types.ObjectId,
         ref: 'Place',
         required: true,
         unique: true
     },
+    DayNum: {
+      type:Number,
+       required:true
+      },
     Day: {
       type: String,
-      required: true,
+      required: false,
       enum: ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'], 
     },
    /* DayMonth: {

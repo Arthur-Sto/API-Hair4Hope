@@ -57,6 +57,9 @@ app.get("/fakeroute",async (req,res)=>{
 app.listen(port, () => console.log(`Servidor rodando na porta ${port}`));
 
 
+import { Schedule } from "./src/models/schedule.js";
+//await Schedule.create({UserId:'66eb93e4f66bd2ca42068616', PlaceId:"6705b10c8568d1befe33327c", Day:"Sexta", Month:2, Horario:'10:50'})
+
 /*import { ONG } from "./src/models/ong.js";
 const creation = await ONG.create({Nome:"a",Desc:"a",estab_parc:"a"})
 console.log(creation)

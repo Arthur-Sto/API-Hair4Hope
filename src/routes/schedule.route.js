@@ -2,7 +2,7 @@
 
 
 import { Router } from "express";
-import { createSchedule, findAllScheduleByUser, findScheduleById, FindScheduleByUser, updateSchedule,deleteScheduleById, findHorariosByPlaceId} from "../controllers/schedule.controller.js";
+import { createSchedule,  findHorariosByPlaceId, FindSchedulesByUser} from "../controllers/schedule.controller.js";
 import { authMiddleware } from "../middlewares/global.middleware.js";
 
 const scheduleRoute = Router()
@@ -14,14 +14,17 @@ const scheduleRoute = Router()
 scheduleRoute.get("/:placeid/:diasemana",findHorariosByPlaceId)
 
 scheduleRoute.post("/create",authMiddleware, createSchedule)
-scheduleRoute.post("/update/:id",authMiddleware, updateSchedule)
+
+scheduleRoute.get("/:userId",FindSchedulesByUser)
+
+/*scheduleRoute.post("/update/:id",authMiddleware, updateSchedule)
 
 scheduleRoute.get("/:id",findScheduleById)
 
 scheduleRoute.get("/user/:id", findAllScheduleByUser)
 
 scheduleRoute.post("/remove/:id",authMiddleware, deleteScheduleById)
-
+*/
 
 
 

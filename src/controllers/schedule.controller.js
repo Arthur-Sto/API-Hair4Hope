@@ -1,11 +1,11 @@
 import mongoose, { Types } from "mongoose";
-import { createScheduleService, findAllScheduleByUserService, updateScheduleService, findScheduleByIdService, findScheduleByUserService, deleteScheduleByIdService, findHorariosByPlaceIdService, getIntervalos } from "../services/schedule.service.js";
+import { createScheduleService, findAllScheduleByUserService, updateScheduleService, findScheduleByIdService, findSchedulesByUserService, deleteScheduleByIdService, findHorariosByPlaceIdService, getIntervalos } from "../services/schedule.service.js";
 
 export const createSchedule = async (req, res) => {
     const id = req.userId
-    const { PlaceName, Day, Month, Horario,PlaceId } = req.body
+    const { Day, Month, Horario,PlaceId } = req.body
     try {
-        if (!PlaceName || !Day || !Month || !Horario|| !PlaceId) {
+        if (!Day || !Month || !Horario|| !PlaceId) {
 
             return res.status(400).send({ message: "Preencha todos os campos" })
 
@@ -42,63 +42,42 @@ export const updateSchedule = async (req, res) => {
 }
 
 
-export const findAllScheduleByUser = async (req,res)=>{
-    const userId = req.userId
-    try{
-        const schedules = await findAllScheduleByUserService(userId)
-        return res.send({schedules})
-    }catch(err){
-        return res.status(500).send({message:"Erro interno no servidor"})
-    }
-}
 
-export const findScheduleById = async(req,res)=>{
-    const scheduleId = req.params.id 
-    const userId = req.userId
+export const FindSchedulesByUser = async (req,res) =>{
+    const userId = req.params.userId
+
     try{
 
-        if(!mongoose.Types.ObjectId.isValid(scheduleId)){
+        if(!Types.ObjectId.isValid(userId)){
             return res.status(400).send({message:"ID inválido"})
         }
 
-        const schedule =await findScheduleByIdService(scheduleId)
+        let schedule  =await findSchedulesByUserService(userId)
+
         
 
-        if(!schedule){
-            res.status(400).send({message:"Agendamento não encontrado"})
+        if(!schedule || schedule.length == 0){
+            return send.status(400).send("Agendamentos não encontrados")
         }
 
-        return res.send(schedule)
-    }catch(err){
-        return res.status(500).send({message:"Algo deu errado"})
-    }
-}
 
-export const FindScheduleByUser = async (req,res) =>{
-    const userId = req.userId
+        //console.log(schedule)
+       /* await schedule.populate("PlaceId")
+       
+        var proto = req.connection.encrypted ? 'https://' : 'http://'
 
-    try{
-        const schedule  =await findScheduleByUserService(userId)
-
+        
+        
+        const foto = (`${proto}${req.headers.host}${schedule.PlaceId.foto}`)
+     console.log(foto) */
         return res.send(schedule)
 
     }catch(err){
+        console.log(err.toString())
         return res.status(500).send({message:"Algo deu errado"})
     }
 }
 
-
-export const deleteScheduleById = async(req,res)=>{
-    const {id} = req.body
-    try{
-        const del  =await deleteScheduleByIdService(id)
-
-        return res.send(del)
-
-    }catch(err){
-        return res.status(500).send({message:"Algo deu errado"})
-    }
-}
 
 
 
@@ -125,5 +104,47 @@ export const findHorariosByPlaceId = async (req,res)=>{
     return res.status(400).send({message:"Algo deu errado",success:false})
 }
 
+/*
+export const findAllScheduleByUser = async (req,res)=>{
+    const userId = req.userId
+    try{
+        const schedules = await findAllScheduleByUserService(userId)    
+        return res.send({schedules})
+    }catch(err){
+        return res.status(500).send({message:"Erro interno no servidor"})
+    }
+}
 
+export const findScheduleById = async(req,res)=>{
+    const scheduleId = req.params.id 
+    const userId = req.userId
+    try{
 
+        if(!mongoose.Types.ObjectId.isValid(scheduleId)){
+            return res.status(400).send({message:"ID inválido"})
+        }
+
+        const schedule =(await findScheduleByIdService(scheduleId))
+        
+
+        if(!schedule){
+            res.status(400).send({message:"Agendamento não encontrado"})
+        }
+        console.log(schedule.populate("PlaceId"))
+        return res.send(schedule)
+    }catch(err){
+        return res.status(500).send({message:"Algo deu errado"})
+    }
+}
+export const deleteScheduleById = async(req,res)=>{
+    const {id} = req.body
+    try{
+        const del  =await deleteScheduleByIdService(id)
+
+        return res.send(del)
+
+    }catch(err){
+        return res.status(500).send({message:"Algo deu errado"})
+    }
+}
+*/
