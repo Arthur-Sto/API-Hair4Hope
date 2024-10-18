@@ -13,7 +13,7 @@ export const validateCode = async (req, res) => {
             "3": verifyONGrepByEmailService
         }
         code = code.replaceAll("-", "")
-        code=code.replaceAll(" ","")
+        code=code.replaceAll(" ","").toLowerCase()
         
         email = email.replaceAll(" ","")
         email=email.toLowerCase()

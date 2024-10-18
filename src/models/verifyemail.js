@@ -16,7 +16,7 @@ const emailVerifySchema = new Schema({
 },{timestamps:true})
 
 emailVerifySchema.pre("save",async function(next){
-    this.code = this.code.replaceAll("-","")
+    this.code = this.code.replaceAll("-","").toLowerCase()
     return next()   
 })
 
