@@ -6,7 +6,7 @@ import  User  from "../models/user.js"
 
 
 const generateCode = ()=>{
-    return "#-#-#-#".replaceAll("#",()=>Math.floor(Date.now() * Math.random()).toString(36).substring(0,3))
+    return Math.floor(Date.now() * Math.random()).toString(35).substring(0,5).toUpperCase()
 }
 
 export const sendVerificationCode = async(email,userId)=>{
