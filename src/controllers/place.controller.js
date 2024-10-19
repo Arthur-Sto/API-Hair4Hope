@@ -1,6 +1,6 @@
 import { Types } from "mongoose";
 import { createPlaceService, updatePlaceByIdService, deletePlaceByIdService, findPlaceByIdService, validateCEP, findAllPlacesService, setHorarioByPlaceIdService } from "../services/place.service.js";
-import {  findOngByCNPJService } from "../services/ong.service";
+import {  findOngByCNPJService } from "../services/ong.service.js";
 //import { createImage } from "./Image.controller.js";
 //import { createImageService } from "../services/Image.service";
 

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form action="/ong/create" method="get" id="sendong">
+        <label for="NomeOng">Nome da ong:</label>
+        <input type="text" name="NomeOng" id="NomeOng"><br>
+
+        <label for="DescOng">Descrição da ong:</label>
+        <textarea name="DescOng" id="DescOng" rows="4"></textarea><br><br>
+
+        <label for="estab_parc">Estabelecimentos parceiros:</label> <button name="addCNPJ">+</button>
+        <div id="cnpjs"><input type="text" name="estab_parc" id="estab_parc" placeholder="CNPJ"><br></div><br>
+
+
+        <input type="submit" name="enviar">
+
+    </form>
+    <script>
+        let formOng = document.getElementById("sendong")
+        formOng.addEventListener("click", async function (e) {
+
+
+
+
+            let estab_parc = document.getElementById("estab_parc")
+            e.preventDefault()
+
+
+            if (e.target.name == "addCNPJ") {
+                let clone = estab_parc.cloneNode(true)
+                clone.nodeName = parseInt(Date.now()).toString()
+                document.getElementById("cnpjs").appendChild(clone)
+                document.getElementById("cnpjs").append(document.createElement("br"))
+
+            }
+
+            if (e.target.name == "enviar") {
+
+
+                let estab_parcArr = []
+                document.getElementById("cnpjs").querySelectorAll("*").forEach(item => estab_parcArr.push(item.value))
+
+                const urlFetch = `${location.protocol}//${location.host}/ong/create`
+
+                fetch(urlFetch, {
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    method: "POST", body: JSON.stringify({
+                        estab_parc: estab_parcArr,
+                        Nome: document.getElementById("NomeOng").value,
+                        Desc: document.getElementById("DescOng").value
+                    })
+                }).then(async res => alert(await res.json()))
+            }
+
+
+
+        })
+    </script>
+</body>
+
+
+</html>

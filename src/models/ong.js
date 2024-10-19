@@ -12,12 +12,18 @@ const ONGSchema = new Schema({
     },
     estab_parc:{
         type:Array,
+        trim:true,
         default:[] //cnpj
     },
     pass_acesso:{
         type:String,
-        default:"####".replaceAll("#",()=>Math.floor(Date.now() * Math.random()).toString(36).substring(0,3))
+        default:"##".replaceAll("#",()=>Math.floor(Date.now() * Math.random()).toString(35).substring(0,3))
     }
+})
+
+ONGSchema.pre("save",async function(next){
+    this.estab_parc = this.estab_parc.filter(cnpj=>cnpj)
+    next()
 })
 
 export const ONG = model("ong",ONGSchema)

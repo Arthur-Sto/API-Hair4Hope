@@ -8,3 +8,4 @@ export const findAllOngsService = () => ONG.find()
 
 export const findOngByIdService = (id) => ONG.findOne({_id:id})
 
+export const createOngService = (body)=>ONG.create(body)

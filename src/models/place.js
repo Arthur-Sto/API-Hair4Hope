@@ -45,7 +45,10 @@ const PlaceSchema = new Schema({
   },
 
   horarios_func: {
+    type:Object,
     required:false,
+
+    
     Segunda: {
       Abertura: { type: String, required: true },
       Fechamento: { type: String, required: true },
