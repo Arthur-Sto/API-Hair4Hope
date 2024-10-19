@@ -12,6 +12,8 @@ export const deletePlaceByIdService = (id) => Place.findOneAndDelete({ _id: id }
 
 export const findAllPlacesService =() => Place.find()
 
+export const setHorarioByPlaceIdService = (PlaceId,horarios_func)=>Place.findOneAndUpdate({_id:PlaceId},{horarios_func})
+
 export const validateCEP = async (cep) => {
     const url = `https://cep.awesomeapi.com.br/json/${cep}`
     try {

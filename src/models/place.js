@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import { Schema, model, Types } from "mongoose";
 
 
 const PlaceSchema = new Schema({
@@ -20,8 +20,9 @@ const PlaceSchema = new Schema({
     type: String,
     required: true
   },
-  cnpj: {
+  cnpj: { //tem que estar no model ong e só pode ser usado uma vez no model place
     type: String,
+    unique:true,
     required: true
   },
   cep: {
@@ -30,20 +31,21 @@ const PlaceSchema = new Schema({
   },
   
   ong_parc: {
-    type: Array,
-    default: [],
-    required: false
+    ref: "ong",
+    type: Types.ObjectId,
+    required: true
   },
-  desc: {
+  /*desc: {
     type: String,
     required: false
-  },
+  },*/
   dist: {
     type: Number,
     required: false
   },
 
   horarios_func: {
+    required:false,
     Segunda: {
       Abertura: { type: String, required: true },
       Fechamento: { type: String, required: true },

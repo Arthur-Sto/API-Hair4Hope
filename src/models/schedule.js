@@ -25,7 +25,7 @@ const scheduleSchema = new Schema({
     Day: {
       type: String,
       required: false,
-      enum: ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'], 
+      // enum: ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'], 
     },
    /* DayMonth: {
       type: Number,
