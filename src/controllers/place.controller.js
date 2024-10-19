@@ -42,13 +42,18 @@ export const setHorarioByPlaceId = async(req,res)=>{
     let {horarios_func,PlaceId} = req.body
     
     try{
+
+      if(!Types.ObjectId.isValid(PlaceId)){
+        return res.status(400).send({message:"ID de estabelecimento errado."})
+      }
+
       const horario = await setHorarioByPlaceIdService(PlaceId,horarios_func)
 
       if(!horario){
         return res.status(400).send({message:"Não foi possível adicionar os horários de funcionamento"})
       }
 
-      return res.send({message:"Horário adicionado com sucesso", horario})
+      return res.send({message:"Horário adicionado com sucesso", horario, PlaceId})
     }catch(err){
       return res.status(500).send({message:"Erro interno no servidor"})
     }
