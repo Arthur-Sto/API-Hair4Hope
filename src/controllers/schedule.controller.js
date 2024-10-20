@@ -1,5 +1,5 @@
 import mongoose, { Types } from "mongoose";
-import { createScheduleService, findAllScheduleByUserService, updateScheduleService, findScheduleByIdService, findSchedulesByUserService, deleteScheduleByIdService, findHorariosByPlaceIdService, getIntervalos, findAllSchedulesService } from "../services/schedule.service.js";
+import { createScheduleService, findAllScheduleByUserService, updateScheduleService, findScheduleByIdService, findSchedulesByUserService, deleteScheduleByIdService, findHorariosByPlaceIdService, getIntervalos, findAllSchedulesService, updateScheduleByIdService } from "../services/schedule.service.js";
 
 export const createSchedule = async (req, res) => {
     const id = req.userId
@@ -13,17 +13,18 @@ export const createSchedule = async (req, res) => {
 
         const schedule = await createScheduleService({ UserId: id, ...req.body })
 
-        return res.send(schedule)
+        return res.send({message:"Agendamento marcado com sucesso", schedule})
 
     } catch (err) {
-        return res.status(500).send({ message: "Erro interno" })
+        console.log(err)
+        return res.status(500).send({ message: err.code == 11000 ? "Você já possui um agendamento marcado": "Erro interno" })
     }
 
 }
 
 export const updateSchedule = async (req, res) => {
     const userId = req.userId
-    const scheduleId = req.params.id 
+    const {scheduleId} = req.body
 
 
     if(!mongoose.Types.ObjectId.isValid(scheduleId)){
@@ -32,9 +33,9 @@ export const updateSchedule = async (req, res) => {
     
     try {
         
-        const schedule = await updateScheduleService(userId, req.body)
+        const schedule = await updateScheduleByIdService(scheduleId,req.body)
 
-        return res.send(schedule)
+        return res.send({message:"Agendamento editado", schedule})
 
     } catch (err) {
         return res.status(500).send({ message: "Erro interno" })
@@ -112,6 +113,20 @@ export const findAllSchedules =async(req,res)=>{
    }
 }
 
+export const deleteScheduleById = async(req,res)=>{
+    const {id} = req.body
+    try{
+        const del  =await deleteScheduleByIdService(id)
+        
+
+        return res.send({message:"Agendamento apagado", del, id})
+
+    }catch(err){
+        console.log(err.toString())
+        return res.status(500).send({message:"Erro interno no servidor"})
+    }
+}
+
 
 /*
 export const findAllScheduleByUser = async (req,res)=>{
@@ -145,15 +160,5 @@ export const findScheduleById = async(req,res)=>{
         return res.status(500).send({message:"Algo deu errado"})
     }
 }
-export const deleteScheduleById = async(req,res)=>{
-    const {id} = req.body
-    try{
-        const del  =await deleteScheduleByIdService(id)
 
-        return res.send(del)
-
-    }catch(err){
-        return res.status(500).send({message:"Algo deu errado"})
-    }
-}
 */

@@ -4,6 +4,7 @@ import { validate } from "email-validator";
 import bcrypt from "bcrypt"
 import { sendVerificationCode } from "../services/verify.service.js";
 import { Types } from "mongoose";
+import {phone} from "phone";
 
 export const createUser = async (req, res) => {
     const { nome, email, senha } = req.body;
@@ -76,19 +77,39 @@ export const findById = async (req, res) => {
 }
 
 export const updateUser = async (req, res) => {
+    const { id, userId } = req;
     try {
-        const { nome, email, senha, tipoCabelo, Coloracao, AdicionaisCabelo } = req.body;
+        const { nome, email, senha, tipoCabelo, Coloracao, AdicionaisCabelo, Telefone } = req.body;
 
-        if (!nome && !email && !senha && !tipoCabelo && !Coloracao && !AdicionaisCabelo) {
+        if (!nome && !email && !senha && !tipoCabelo && !Coloracao && !AdicionaisCabelo && !Telefone) {
             return res
                 .status(400)
                 .send({ message: "Tenha no minimo um campo para atualizar." });
         }
-        const { id, user } = req;
 
-        await updateUserService(id, req.body);
+        const isValidEmail =  validate(email)
 
-        return res.send({ message: "Usuário atualizado com sucesso" });
+        if(!isValidEmail){
+            return res
+                .status(400)
+                .send({ message: "Email inválido" });
+        }
+
+        const phoneCheck =   phone(Telefone,{country:"BR"})
+        
+        if (!phoneCheck.isValid){
+            return res
+            .status(400)
+            .send({ message: "Telefone inválido" });
+    
+        }
+    
+
+
+        const updateCheck = await updateUserService(id||userId, req.body);
+        
+
+        return res.send({ message: "Perfil atualizado com sucesso" , updateCheck});
     } catch (err) {
         return res.status(500).send({ message: `Erro interno: ${err.toString()}` })
     }

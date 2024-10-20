@@ -16,7 +16,7 @@ const scheduleSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Place',
         required: true,
-        unique: true
+       // unique: true
     },
     DayNum: {
       type:Number,
