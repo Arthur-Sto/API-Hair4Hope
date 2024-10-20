@@ -58,15 +58,6 @@ export const cnpjMiddleware = async (req, res, next) => {
     return next()
 }
 
-export const pass_acessoMiddleware= async(req,res,next)=>{
-    const {pass_acesso} = req.body
-
-    if(pass_acesso.toString().toLowerCase() != "tamanduabandeira"){
-        return res.status(400).send({message:"Senha de acesso inválida"})
-    }
-    console.log("nao")
-    return next()
-}
 
 
 

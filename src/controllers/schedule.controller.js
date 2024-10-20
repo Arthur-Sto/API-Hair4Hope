@@ -1,5 +1,5 @@
 import mongoose, { Types } from "mongoose";
-import { createScheduleService, findAllScheduleByUserService, updateScheduleService, findScheduleByIdService, findSchedulesByUserService, deleteScheduleByIdService, findHorariosByPlaceIdService, getIntervalos } from "../services/schedule.service.js";
+import { createScheduleService, findAllScheduleByUserService, updateScheduleService, findScheduleByIdService, findSchedulesByUserService, deleteScheduleByIdService, findHorariosByPlaceIdService, getIntervalos, findAllSchedulesService } from "../services/schedule.service.js";
 
 export const createSchedule = async (req, res) => {
     const id = req.userId
@@ -43,10 +43,12 @@ export const updateSchedule = async (req, res) => {
 
 
 
-export const FindSchedulesByUser = async (req,res) =>{
-    const userId = req.params.userId
+export const FindSchedulesByUserId = async (req,res) =>{
+    const userId = req.userId //|| req.params.userId
 
     try{
+
+        console.log(userId)
 
         if(!Types.ObjectId.isValid(userId)){
             return res.status(400).send({message:"ID inválido"})
@@ -55,26 +57,17 @@ export const FindSchedulesByUser = async (req,res) =>{
         let schedule  =await findSchedulesByUserService(userId)
 
         
-
         if(!schedule || schedule.length == 0){
-            return send.status(400).send("Agendamentos não encontrados")
+            return res.status(400).send({message:"Agendamentos não encontrados",})
         }
 
 
-        //console.log(schedule)
-       /* await schedule.populate("PlaceId")
-       
-        var proto = req.connection.encrypted ? 'https://' : 'http://'
-
         
-        
-        const foto = (`${proto}${req.headers.host}${schedule.PlaceId.foto}`)
-     console.log(foto) */
-        return res.send(schedule)
+        return res.send({schedule})
 
     }catch(err){
         console.log(err.toString())
-        return res.status(500).send({message:"Algo deu errado"})
+        return res.status(500).send({message:"Erro interno no servidor"})
     }
 }
 
@@ -82,9 +75,13 @@ export const FindSchedulesByUser = async (req,res) =>{
 
 
 export const findHorariosByPlaceId = async (req,res)=>{
+
+    
     //http:localhost/schedule/:idplace/:diasemana
     const PlaceId = req.params.placeid 
     const diasemana = req.params.diasemana
+
+    
 
     if(!Types.ObjectId.isValid(PlaceId)){
         res.status(404).send({message:"ID inválido"})
@@ -103,6 +100,18 @@ export const findHorariosByPlaceId = async (req,res)=>{
 
     return res.status(400).send({message:"Algo deu errado",success:false})
 }
+
+
+export const findAllSchedules =async(req,res)=>{
+   const schedules = await findAllSchedulesService() 
+
+   try{
+    return res.send({schedules})
+   }catch(err){
+    return res.status(500).send({message:"Erro interno no servidor"})
+   }
+}
+
 
 /*
 export const findAllScheduleByUser = async (req,res)=>{

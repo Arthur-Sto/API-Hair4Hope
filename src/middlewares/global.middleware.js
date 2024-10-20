@@ -30,7 +30,7 @@ export const authMiddleware = (req, res, next) => {
 
         jwt.verify(token, process.env.SECRET_JWT, async (error, decoded) => {
             if (error) {
-                return res.status(401).send({ message: "Token invalid!" });
+                return res.status(401).send({ message: "Token inválido" });
             };
 
             const decodedID = decoded.id

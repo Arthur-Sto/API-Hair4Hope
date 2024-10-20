@@ -18,6 +18,7 @@ export const findSchedulesByUserService = (id) => Schedule.find({ UserId: id }).
 
 export const findHorariosByPlaceIdService = (PlaceId) => Place.findOne({ _id: PlaceId })
 
+export const findAllSchedulesService = () => Schedule.find()
 
 
 export function getIntervalos(timesObj) {
