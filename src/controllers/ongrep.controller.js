@@ -5,7 +5,7 @@ import valid_email from "email-validator"
 import { Types } from "mongoose";
 import bcrypt from "bcrypt";
 import { phone } from "phone";
-import { findOngByIdService, findOngByNameService } from "../services/ong.service.js";
+import { claimOngPass, findOngByIdService, findOngByNameService } from "../services/ong.service.js";
 import { sendVerificationCode } from "../services/verify.service.js";
 
 
@@ -42,9 +42,11 @@ export const createONGrep = async (req, res) => { //O QUE FAZ COM O ONGID
             return res.status(400).send({ message: "ONG não disponível" })
         }
 
-        if(ong.pass_acesso != pass_acesso){
+        if(ong.pass_acesso.toLocaleLowerCase() != pass_acesso.toLocaleLowerCase()){
             return res.status(400).send({ message: "Código de acesso inválido, consulte algum administrador" })
         }
+
+        
 
         const user = await createONGrepService(req.body)
 
@@ -52,7 +54,7 @@ export const createONGrep = async (req, res) => { //O QUE FAZ COM O ONGID
             return res.status(400).send({ message: "Algo deu errado" })
         }
 
-        await sendVerificationCode(email,user._id)
+        await claimOngPass(ongId)
     
         return res.send({ verifyMessage:`Cadastro efetuado com sucesso, verifique o email ${email}`, message: "Sucesso ao criar o perfil", userId:user._id, user:user,email,nome })
 

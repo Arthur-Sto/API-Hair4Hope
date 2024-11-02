@@ -19,7 +19,7 @@ export const validateCode = async (req, res) => {
         email = email.replaceAll(" ","")
         email=email.toLowerCase()
 
-        console.log(email,code)
+        console.log(email,code,tipo)
 
         //console.log(tipo, typeof tipo, tipo.length, verifyServices[tipo])
 

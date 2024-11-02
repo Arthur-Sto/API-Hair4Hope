@@ -20,7 +20,7 @@ export const sendVerificationCode = async(email,userId)=>{
     code = emailCheck.code
 
     const sentEmail = await transport.sendMail({
-        to:email, subject:"Não responda", html:`Seu código de verificação é: <b>${code}</b>`
+        to:email, subject:"Não responda", html:`Seu código de verificação é: <b>${code.toUpperCase()}</b>`
     })
 
     //console.log(sentEmail)
