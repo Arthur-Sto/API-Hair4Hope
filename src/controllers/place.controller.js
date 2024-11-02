@@ -28,6 +28,8 @@ export const createPlace = async (req, res) => {
     return res.status(400).send({message:"Cnpj não cadastrado"})
   }
 
+  
+
 
   const createdPlace = await createPlaceService({ idPlaceOwner, foto, nome, endereco, cnpj, cep, ong_parc })
 

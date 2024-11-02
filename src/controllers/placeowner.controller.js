@@ -28,7 +28,7 @@ export const createPlaceOwner = async (req, res) => {
         if (!PlaceOwner) {
             return res.status(400).send({ message: "Criação de perfil deu errado" })
         }
-        await sendVerificationCode(email,PlaceOwner._id)
+        /*await sendVerificationCode(email,PlaceOwner._id)*/
         
 
         return res.send({ verifyMessage:`Cadastro efetuado com sucesso, verifique o email ${email}`, message: "Sucesso ao criar o perfil", userId:PlaceOwner._id, user:PlaceOwner,email,nome })
@@ -99,7 +99,7 @@ export const PlaceOwnerLogin = async (req, res) => {
 
         const user = await PlaceOwnerLoginService(email)
 
-        console.log(user)
+       
 
         if (!user) {
             return res.status(400).send({ message: "Email ou senha incorretos" })
@@ -112,6 +112,16 @@ export const PlaceOwnerLogin = async (req, res) => {
 
         if (!comp) {
             return res.status(400).send({ message: "Email ou senha incorretos" })
+        }
+
+
+        if(!user.verified){
+            
+            await sendVerificationCode(email, user._id)
+            return res.send({
+                verifyMessage: `Por favor, verifique o email ${email}`,
+                email
+            })
         }
 
         const token = generateToken(user._id)

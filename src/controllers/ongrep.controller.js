@@ -94,7 +94,7 @@ export const ONGrepLogin = async (req, res) => {
 
     try {
 
-        const user = await ONGrepLoginService(email).select("senha")
+        const user = await ONGrepLoginService(email).select(["senha","verified"])
 
         console.log(user)
 
@@ -109,6 +109,14 @@ export const ONGrepLogin = async (req, res) => {
         }
 
 
+        if(!user.verified){
+            
+            await sendVerificationCode(email, user._id)
+            return res.send({
+                verifyMessage: `Por favor, verifique o email ${email}`,
+                email
+            })
+        }
 
 
         const token =  generateToken(user._id.toString())

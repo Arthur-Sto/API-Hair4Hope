@@ -36,6 +36,7 @@ const ONGrepSchema = new mongoose.Schema({
 });
 
 ONGrepSchema.pre("save", async function (next) {
+  this.email = this.email.toLowerCase()
   this.senha = await bcrypt.hash(this.senha, 10);
   next();
 });

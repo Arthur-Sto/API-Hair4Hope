@@ -1,9 +1,10 @@
 import { verifyModel } from "../models/verifyemail.js"
+import { generateToken } from "../services/globalAuth.service.js"
 import { sendVerificationCode, validateCodeService, verifyONGrepByEmailService, verifyPlaceOwnerByEmailService, verifyUserByEmailService } from "../services/verify.service.js"
 
 
 export const validateCode = async (req, res) => {
-    let { email, code, tipo } = req.params
+    let { email, code, tipo } = req.body
 
     try {
 
@@ -36,6 +37,8 @@ export const validateCode = async (req, res) => {
             return res.status(400).send({ message: "Algo deu errado" })
         }
 
+        
+
         const validatedCode = await validateCodeService(email, code)
 
         //console.log(await verifyModel.find())
@@ -45,10 +48,10 @@ export const validateCode = async (req, res) => {
             return res.status(400).send({ message: "Código inválido" })
         }
 
-        
+        const token = generateToken( verifiedUser.userId )
 
 
-        return res.send({ message: "Email verificado com sucesso!", success: true, user: validatedCode.userId.toString(),email })
+        return res.send({ message: "Email verificado com sucesso!", success: true, user: validatedCode.userId.toString(),email, token })
     } catch (err) {
         return res.status(500).send({ message: "Erro interno no servidor, tente novamente mais tarde." })
     }

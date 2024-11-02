@@ -23,7 +23,7 @@ export const generateToken =  (id) => {
     return token
 };
 
-export const loginService = (email) => User.findOne({email}).select("+senha");
+export const loginService = (email) => User.findOne({email:{$regex: new RegExp(email, "i")}}).select("+senha");
 
 
 
@@ -36,7 +36,7 @@ export const deleteONGrepService = (id) => ONGrep.deleteOne({_id:id})
 
 export const findONGrepByIdService = (id)=>ONGrep.findById(id)
 
-export const ONGrepLoginService = (email)=>ONGrep.findOne({email:email}).select("+senha")
+export const ONGrepLoginService = (email)=>ONGrep.findOne({email:{$regex: new RegExp(email, "i")}}).select("+senha");
 
 
 //-------------------------------------------PLACEOWNER----------------------------------------------\\
@@ -50,5 +50,5 @@ export const findPlaceOwnerByIdService = (id) =>PlaceOwner.findById(id)
 
 export const findAllPlaceOwnerService = () =>PlaceOwner.find()
 
-export const PlaceOwnerLoginService = (email) =>PlaceOwner.findOne({email}).select("senha")
+export const PlaceOwnerLoginService = (email) =>PlaceOwner.findOne({email:{$regex: new RegExp(email, "i")}}).select("+senha");
 

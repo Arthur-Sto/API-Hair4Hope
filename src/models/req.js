@@ -6,11 +6,20 @@ const reqSchema = new Schema({
   PlaceId: {
     type: Schema.Types.ObjectId,
     ref: 'place',
+    unique: true,
     required: true,
   },
-  ONGrepId: {
+  PlaceOwnerId:{
     type: Schema.Types.ObjectId,
-    ref: 'ongrep',
+    ref: 'PlaceOwner',
+    unique: true,
+    required: false,
+
+  },
+  ongRepId: {
+    type: Schema.Types.ObjectId,
+    ref: 'ONGrep',
+    unique: true,
     required: false,
   },
   TipoCabelo: {
@@ -35,9 +44,9 @@ const reqSchema = new Schema({
     type: String,
     required: false
   },
-  FullConfirm :{
-    type:Boolean,
-    required:false
+  FullConfirm: {
+    type: Boolean,
+    required: false
   }
 })
 

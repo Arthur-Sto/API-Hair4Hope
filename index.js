@@ -58,8 +58,8 @@ app.listen(port, () => console.log(`Servidor rodando na porta ${port}`));
 
 
 import User from "./src/models/user.js";
-const updt = await User.updateMany({_id:'66f607221680946217e356f2'}, {email:'tester1112@gmail.com'})
-console.log(updt)
+/*const updt = await User.updateMany({_id:'66f607221680946217e356f2'}, {email:'tester1112@gmail.com'})
+console.log(updt)*/
 
 
 //await Schedule.create({UserId:'66eb93e4f66bd2ca42068616', PlaceId:"6705b10c8568d1befe33327c", Day:"Sexta", Month:2, Horario:'10:50'})

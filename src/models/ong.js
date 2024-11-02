@@ -15,6 +15,7 @@ const ONGSchema = new Schema({
         trim:true,
         default:[] //cnpj
     },
+    
     pass_acesso:{
         type:String,
         default:"##".replaceAll("#",()=>Math.floor(Date.now() * Math.random()).toString(35).substring(0,3))

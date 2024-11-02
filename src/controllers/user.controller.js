@@ -20,9 +20,9 @@ export const createUser = async (req, res) => {
             return res.status(400).send({ message: "Erro ao criar usuario" });
         }
 
-        await sendVerificationCode(email, user._id)
+        /*await sendVerificationCode(email, user._id)
 
-        // const shortMail = `${email.substring(0,3)}...${email.substring(email.indexOf("@"),email.length)}`
+         const shortMail = `${email.substring(0,3)}...${email.substring(email.indexOf("@"),email.length)}`*/
 
         return res.send({ verifyMessage: `Cadastro efetuado com sucesso, verifique o email ${email}`, message: "Cadastro efetuado com sucesso", userId: user._id, email, nome })
 
@@ -125,7 +125,7 @@ export const LoginUser = async (req, res) => {
     }
 
     try {
-        const user = await loginService(email).select("senha")
+        const user = await loginService(email).select(["senha","verified"])
 
         if (!user) {
             return res.status(400).send({ message: "Email ou senha incorretos" })
@@ -135,14 +135,25 @@ export const LoginUser = async (req, res) => {
         const comp = bcrypt.compareSync(senha, user.senha)
 
 
-
         if (!comp) {
             return res.status(400).send({ message: "Email ou senha incorretos" })
+        }
+
+        
+
+        if(!user.verified){
+            
+            await sendVerificationCode(email, user._id)
+            return res.send({
+                verifyMessage: `Por favor, verifique o email ${email}`,
+                email
+            })
         }
 
         const token = generateToken(user._id)
 
         return res.send({ message: "Usuário logado", token, userId: user._id })
+        
     } catch (err) {
         return res.status(500).send({ message: "Erro interno" })
     }
