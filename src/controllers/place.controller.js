@@ -1,5 +1,5 @@
 import { Types } from "mongoose";
-import { createPlaceService, updatePlaceByIdService, deletePlaceByIdService, findPlaceByIdService, validateCEP, findAllPlacesService, setHorarioByPlaceIdService } from "../services/place.service.js";
+import { createPlaceService, updatePlaceByIdService, deletePlaceByIdService, findPlaceByIdService, validateCEP, findAllPlacesService, setHorarioByPlaceIdService, findPlaceByPlaceOwnerIdService } from "../services/place.service.js";
 import {  findOngByCNPJService } from "../services/ong.service.js";
 //import { createImage } from "./Image.controller.js";
 //import { createImageService } from "../services/Image.service";
@@ -29,7 +29,6 @@ export const createPlace = async (req, res) => {
   }
 
   
-
 
   const createdPlace = await createPlaceService({ idPlaceOwner, foto, nome, endereco, cnpj, cep, ong_parc })
 
@@ -63,21 +62,23 @@ export const setHorarioByPlaceId = async(req,res)=>{
 
 export const updatePlace = async (req, res) => {
   try {
-    const { foto, nome, endereco, cnpj, cep, ong_parc, dias_func, horarios_func, desc } = req.body
+    let {placeId, foto, nome, endereco, cep } = req.body
 
-    if (!foto && !nome && !endereco && !cnpj && !cep && ong_parc && !dias_func && !horarios_func && !desc) {
+    if (!placeId && !foto && !nome && !endereco && !cep) {
       return res.status(400).send({ message: "Preencha pelo menos um campo para editar" })
     }
 
+    
 
-    const update = await updatePlaceByIdService(id, { foto: `${req.baseUrl}/${img._id}`, nome, endereco, ong_parc, dias_func, horarios_func, desc })
+    const update = await updatePlaceByIdService(placeId, { foto: (foto!=null && `${req.baseUrl}/${foto._id}`), foto, nome, endereco, cep })
 
     if (!update) {
       return res.status(400).send({ message: "Não foi possível atualizar" })
     }
 
-    return res.send({ message: "Atualizado com sucesso", update })
+    return res.send({ message: "Atualizado com sucesso", update:true })
   } catch (err) {
+    console.log(err.toString())
     return res.status(500).send({ message: "Erro interno no servidor." });
   }
 }
@@ -127,3 +128,24 @@ export const findAllPlaces = async (req, res) => {
 
 }
 
+
+
+export const findPlaceByPlaceOwnerId = async (req,res)=>{
+
+  const {idPlaceOwner} = req.params
+
+  if(!Types.ObjectId.isValid(idPlaceOwner)){
+    return res.status(400).send({message:"ID inválido"})
+  }
+
+  const placeInfo = await findPlaceByPlaceOwnerIdService(idPlaceOwner)
+  
+
+  if(!placeInfo){
+    return res.status(400).send({message:"Não foi possível encontrar o estabelecimento"})
+  }
+
+  return res.send({placeInfo})
+
+  
+}

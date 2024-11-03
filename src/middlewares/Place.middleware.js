@@ -12,8 +12,11 @@ export const cepMiddleware = async (req, res, next) => {
     const { cep } = req.body
     if (!cep) { return next() }
 
+
+
     const validCEP = await validateCEP(cep)
-    if (!validCEP.success || !cep) {
+
+    if (!validCEP || validCEP.success == false) {
         return res.status(400).send({ message: "CEP inválido" });
     }
     req.body.cep = validCEP.cep

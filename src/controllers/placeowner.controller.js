@@ -29,6 +29,8 @@ export const createPlaceOwner = async (req, res) => {
             return res.status(400).send({ message: "Criação de perfil deu errado" })
         }
         /*await sendVerificationCode(email,PlaceOwner._id)*/
+
+
         
 
         return res.send({ verifyMessage:`Cadastro efetuado com sucesso, verifique o email ${email}`, message: "Sucesso ao criar o perfil", userId:PlaceOwner._id, user:PlaceOwner,email,nome })
@@ -40,17 +42,17 @@ export const createPlaceOwner = async (req, res) => {
 }
 
 export const updatePlaceOwner = async (req, res) => {
-
-    const { nome, email, senha, Telefone } = req.body
+    const { nome, Telefone } = req.body
 
     try {
-        if (!nome && !email && !senha && !Telefone) {
+        if (!nome &&  !Telefone) {
             return res.status(400).send({ message: "Preencha pelo menos um campo" })
         }
 
         const update = await updatePlaceOwnerService(req.userId, req.body)
-
-        return res.send({ message: "Atualizado com sucesso" })
+        console.log(req.userId)
+        return res.send({ message: "Atualizado com sucesso", update:true })
+        
     } catch (err) {
         return res.status(500).send({ message: "Erro" })
     }
@@ -77,6 +79,7 @@ export const findPlaceOwnerById = async (req, res) => {
         if (!PlaceOwner) {
             return res.status(400).send({ message: "Algo deu errado" })
         }
+
         return res.send({ message: "Tudo certo", PlaceOwner })
 
 
@@ -84,6 +87,8 @@ export const findPlaceOwnerById = async (req, res) => {
         return res.status(500).send({ message: "Erro" })
     }
 }
+
+
 
 
 export const PlaceOwnerLogin = async (req, res) => {

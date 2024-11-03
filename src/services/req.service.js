@@ -12,7 +12,7 @@ export const verifyFullConfirmByReqIdService = async (reqId)=>{
     let req = await reqModel.findOne({_id:reqId})
     let FullConfirm =  (req.PlaceConfirm + req.ONGConfirm) == 2 ? true : false
 
-   await reqModel.updateOne({_id:reqId},{FullConfirm})
+   await reqModel.updateOne({_id:reqId},{FullConfirm, dataComp})
    return FullConfirm
 }
 
@@ -27,3 +27,7 @@ export const findPlaceByRepOngIdService = (RepOngId)=>Place.findOne({rep})
 export const addOngRepToReqByIdService = (reqId,ongRepId)=>reqModel.findOneAndUpdate({_id: reqId},{ongRepId})
 
 export const findOngRepService = (ongRepId) => reqModel.findOne({ongRepId})
+
+export const findReqsByPlaceOwnerIdService =(PlaceOwnerId)=> reqModel.find({PlaceOwnerId})
+
+export const findReqsByOngIdService=(ongId)=>reqModel.find({ongId})

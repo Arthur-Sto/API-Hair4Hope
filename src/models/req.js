@@ -3,6 +3,13 @@ import { type } from "os";
 
 
 const reqSchema = new Schema({
+
+  agendId:{
+    type:String,
+    unique:true,
+
+  },
+  
   PlaceId: {
     type: Schema.Types.ObjectId,
     ref: 'place',
@@ -16,9 +23,9 @@ const reqSchema = new Schema({
     required: false,
 
   },
-  ongRepId: {
+  ongId: {
     type: Schema.Types.ObjectId,
-    ref: 'ONGrep',
+    ref: 'ong',
     unique: true,
     required: false,
   },
@@ -47,6 +54,10 @@ const reqSchema = new Schema({
   FullConfirm: {
     type: Boolean,
     required: false
+  },
+  dataComp:{
+    type:Date, 
+    required:false
   }
 })
 

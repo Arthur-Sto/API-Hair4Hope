@@ -13,3 +13,4 @@ export const createOngService = (body)=>ONG.create(body)
 export const claimOngPass = (ongId) => ONG.findOneAndUpdate({_id:ongId},{
     pass_acesso:"##".replaceAll("#",()=>Math.floor(Date.now() * Math.random()).toString(35).substring(0,3))
 })
+

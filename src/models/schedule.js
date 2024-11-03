@@ -2,6 +2,24 @@ import { model, Schema, SchemaType } from "mongoose"
 
 
 const scheduleSchema = new Schema({
+
+  tipoCabelo: {
+    type: String,
+    enum: ['1A','1B','1C','1D','2A','2B','2C','2D','3A','3B','3C','3D','4A','4B','4C','4D'],
+  },
+  Coloracao: {
+    type: String,
+    enum: ['Escuro', 'Intermediário', 'Claro'],
+  },
+  AdicionaisCabelo: {
+    type: String,
+    default: null,
+  },
+  agendId:{
+    type:String,
+    default:  "##".replaceAll("#",()=>Math.floor(Date.now() * Math.random()).toString(35).substring(0,3)),
+    required:false
+  },
     UserId: {
         type: Schema.Types.ObjectId,
         ref: 'User',

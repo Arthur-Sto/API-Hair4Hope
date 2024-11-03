@@ -9,7 +9,7 @@ const port = 3500
 
 import dotenv from "dotenv"
 import userRoute from "./src/routes/user.route.js";
-import PlaceOwnerRouter from "./src/routes/placeowner.js";
+import PlaceOwnerRouter from "./src/routes/placeowner.route.js";
 import imageRoute from "./src/routes/image.route.js";
 import ONGrepRouter from "./src/routes/ongrep.route.js";
 import scheduleRoute from "./src/routes/schedule.route.js";
@@ -58,6 +58,8 @@ app.listen(port, () => console.log(`Servidor rodando na porta ${port}`));
 
 
 import User from "./src/models/user.js";
+import { generateToken } from "./src/services/globalAuth.service.js";
+console.log(`Bearer ${generateToken("6725ce6ce66498263b558a1c")} 2`)
 /*const updt = await User.updateMany({_id:'66f607221680946217e356f2'}, {email:'tester1112@gmail.com'})
 console.log(updt)*/
 

@@ -1,5 +1,6 @@
 import mongoose, { Types } from "mongoose";
 import { createScheduleService, findAllScheduleByUserService, updateScheduleService, findScheduleByIdService, findSchedulesByUserService, deleteScheduleByIdService, findHorariosByPlaceIdService, getIntervalos, findAllSchedulesService, updateScheduleByIdService } from "../services/schedule.service.js";
+import { findUserByIdService } from "../services/globalAuth.service.js";
 
 export const createSchedule = async (req, res) => {
     const id = req.userId
@@ -10,8 +11,15 @@ export const createSchedule = async (req, res) => {
             return res.status(400).send({ message: "Preencha todos os campos" })
 
         }
+        const user = await findUserByIdService(id)
 
-        const schedule = await createScheduleService({ UserId: id, ...req.body })
+        const {tipoCabelo,Coloracao,AdicionaisCabelo} = user
+
+        
+
+
+
+        const schedule = await createScheduleService({tipoCabelo,Coloracao,AdicionaisCabelo, UserId: id, ...req.body })
 
         return res.send({message:"Agendamento marcado com sucesso", schedule})
 

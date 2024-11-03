@@ -14,6 +14,11 @@ export const findAllPlacesService =() => Place.find()
 
 export const setHorarioByPlaceIdService = (PlaceId,horarios_func)=>Place.findOneAndUpdate({_id:PlaceId},{horarios_func})
 
+export const findPlaceByPlaceOwnerIdService = (idPlaceOwner) => Place.findOne({idPlaceOwner}).populate(["idPlaceOwner","ong_parc"])
+
+export const findOngByPlaceIdService = (PlaceId) => Place.findOne({_id:PlaceId}).populate("")
+
+
 export const validateCEP = async (cep) => {
     const url = `https://cep.awesomeapi.com.br/json/${cep}`
     try {
@@ -24,6 +29,7 @@ export const validateCEP = async (cep) => {
         return { message: "CEP inválido", success: false }
     }
 }
+
 
 /*export const getDistanceFromLatAndLong = async(lat1,lon1,lat2,lon2)=>{
     const apiUrl = `https://router.project-osrm.org/route/v1/match/${lat1},${lon1};${lat2},${lon2}`

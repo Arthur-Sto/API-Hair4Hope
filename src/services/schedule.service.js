@@ -22,6 +22,11 @@ export const findHorariosByPlaceIdService = (PlaceId) => Place.findOne({ _id: Pl
 
 export const findAllSchedulesService = () => Schedule.find()
 
+export const findScheduleByAgendId = (agendId)=>Schedule.findOne({agendId})
+
+
+
+
 
 export function getIntervalos(timesObj) {
     const { Abertura, Fechamento } = timesObj;
