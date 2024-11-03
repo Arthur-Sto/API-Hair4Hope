@@ -5,17 +5,18 @@ import { isImage } from "../middlewares/Place.middleware.js";
 import { findScheduleByAgendId } from "../services/schedule.service.js";
 import { Place } from "../models/place.js";
 import { findPlaceByIdService, findPlaceByPlaceOwnerIdService } from "../services/place.service.js";
+import { findONGrepByIdService } from "../services/globalAuth.service.js";
 
 export const createReq = async (req, res) => {
     const { userId, tipo } = req
-    let {Tamanho, TipoCabelo, agendId, foto,Adicionais, PlaceId, ongId} = req.body
+    let {agendId, foto, PlaceId, ongId, Tamanho} = req.body
 
     
+    
 
-    console.log(userId)
     PlaceId = await findPlaceByPlaceOwnerIdService(userId)
 
-    console.log(PlaceId)
+
 
     if(!PlaceId){
         return res.status(400).send({message:"Estabelecimento indisponível"})
@@ -23,32 +24,43 @@ export const createReq = async (req, res) => {
 
     ongId = PlaceId.ong_parc
 
+    console.log("ong",PlaceId.toString())
+
     const schedule = await findScheduleByAgendId(agendId)
+
 
     if (!schedule) {
         return res.status(400).send({ message: "Código de agendamento inválido" })
     }
 
+   let {tipoCabelo, AdicionaisCabelo, Coloracao} = schedule
+
+   
+  
 
 
-
-    const requerimento = await createReqService({ PlaceId, Tamanho, TipoCabelo, Adicionais, foto, ongId })
+    const requerimento = await createReqService({ PlaceOwnerId:userId, PlaceId, Tamanho, tipoCabelo,Coloracao, AdicionaisCabelo, foto, ongId, agendId })
 
     if (!requerimento) {
         return res.status(400).send({ message: "Não foi possível criar o requerimento, tente novamente mais tarde" })
     }
 
+    console.log(requerimento)
+
     return res.send({ requerimento })
 }
 
 export const findReqsByPlaceOwnerId = async (req, res) => {
+    console.log("aqui")
     const { userId } = req
 
     try {
         const requerimentos = await findReqsByPlaceOwnerIdService(userId)
 
+        console.log(userId)
+
         if (!requerimentos || requerimentos.length == 0) {
-            return res.status(400).send({ message: "Não foi possível encontrar requerimentos" })
+            return res.status(400).send({ message: "Não foi possível encontrar requerimentos", empty:true })
         }
 
         console.log(requerimentos)
@@ -61,21 +73,25 @@ export const findReqsByPlaceOwnerId = async (req, res) => {
 }
 
 export const findReqsByOngId = async (req, res) => {
-    const { ongId } = req.params
+    const {userId, tipo} = req 
+    
     try {
-        if (!Types.ObjectId.isValid(ongId)) {
-            return res.status(400).send({ message: "ID inválido" })
-        }
+        const user = await findONGrepByIdService(userId)
+        const {ongId} = user
+
+
+        console.log("user",user)
 
         const requerimentos = await findReqsByOngIdService(ongId)
 
         if(!requerimentos || requerimentos.length == 0){
-            return res.status(400).send({ message: "Não há requerimentos"})
+            return res.status(400).send({ message: "Não há requerimentos", empty:true})
         }
 
         return res.send(requerimentos)
 
     } catch (err) {
+        console.log(err.toString())
         return res.status(400).send({ message: "erro interno no servidor" })
     }
 }

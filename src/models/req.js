@@ -4,12 +4,11 @@ import { type } from "os";
 
 const reqSchema = new Schema({
 
-  agendId:{
-    type:String,
-    unique:true,
+ agendId:{
+  type: String,
+  required: true
+ },
 
-  },
-  
   PlaceId: {
     type: Schema.Types.ObjectId,
     ref: 'place',
@@ -29,7 +28,17 @@ const reqSchema = new Schema({
     unique: true,
     required: false,
   },
-  TipoCabelo: {
+
+
+  Coloracao:{
+    type: String,
+    required: false
+  },
+  AdicionaisCabelo:{
+    type: String,
+    required: true
+  },
+  tipoCabelo: {
     type: String,
     required: true
   },
@@ -37,6 +46,9 @@ const reqSchema = new Schema({
     type: String,
     required: true
   },
+
+
+
   PlaceConfirm: {
     type: Boolean,
     required: false,
@@ -53,6 +65,7 @@ const reqSchema = new Schema({
   },
   FullConfirm: {
     type: Boolean,
+    default:false,
     required: false
   },
   dataComp:{

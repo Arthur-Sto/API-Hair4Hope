@@ -34,7 +34,7 @@ export const updateONGrepService = (ONGrepId, body)=>ONGrep.findOneAndUpdate({_i
 
 export const deleteONGrepService = (id) => ONGrep.deleteOne({_id:id})
 
-export const findONGrepByIdService = (id)=>ONGrep.findById(id)
+export const findONGrepByIdService = (_id)=>ONGrep.findOne({_id})
 
 export const ONGrepLoginService = (email)=>ONGrep.findOne({email:{$regex: new RegExp(email, "i")}}).select("+senha");
 

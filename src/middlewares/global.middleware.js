@@ -36,7 +36,7 @@ export const authMiddleware = (req, res, next) => {
             };
 
             const decodedID = decoded.id
-            let user
+            let user = null
             if (tipo == 1) {
                 console.log("user normal")
                 user = await findUserByIdService(decodedID)
@@ -49,7 +49,7 @@ export const authMiddleware = (req, res, next) => {
 
             if (tipo == 3) {
                 console.log("representante de ong")
-                user = await findONGrepById(decodedID)
+                user = await findONGrepByIdService(decodedID)
             }
 
             if (!user || !user.id) {

@@ -28,6 +28,6 @@ export const addOngRepToReqByIdService = (reqId,ongRepId)=>reqModel.findOneAndUp
 
 export const findOngRepService = (ongRepId) => reqModel.findOne({ongRepId})
 
-export const findReqsByPlaceOwnerIdService =(PlaceOwnerId)=> reqModel.find({PlaceOwnerId})
+export const findReqsByPlaceOwnerIdService = (PlaceOwnerId) => reqModel.find({PlaceOwnerId})
 
-export const findReqsByOngIdService=(ongId)=>reqModel.find({ongId})
+export const findReqsByOngIdService=(ongId)=> reqModel.find({ongId})
