@@ -68,8 +68,13 @@ const reqSchema = new Schema({
     default:false,
     required: false
   },
+  criacao:{
+    type:String,
+    default: new Date().toLocaleDateString("pt-br",{hour:"2-digit",minute:"2-digit"}) ,
+    required:false
+  },
   dataComp:{
-    type:Date, 
+    type:String, 
     required:false
   }
 })

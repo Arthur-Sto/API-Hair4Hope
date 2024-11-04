@@ -33,6 +33,8 @@ export const findPlaceByRepOngIdService = (RepOngId)=>Place.findOne({rep})
 
 */
 
+
+
 export const addOngRepToReqByIdService = (reqId, ongRepId) => reqModel.findOneAndUpdate({ _id: reqId }, { ongRepId })
 
 export const findOngRepService = (ongRepId) => reqModel.findOne({ ongRepId })
@@ -42,6 +44,10 @@ export const findReqsByPlaceOwnerIdService = (PlaceOwnerId) => reqModel.find({ P
 export const findReqsByOngIdService = (ongId) => reqModel.find({ ongId })
 
 export const deleteReqByIdService = (id) => reqModel.findByIdAndDelete(id)
+
+
+export const findReqByAgendIdService = (agendId)=>reqModel.findOne({agendId})
+
 
 
 

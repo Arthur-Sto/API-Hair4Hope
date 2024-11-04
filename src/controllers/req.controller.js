@@ -1,11 +1,12 @@
 import { Types } from "mongoose";
-import { confirmReqService, createReqService, deleteReqByIdService, findReqByPlaceIdService, findReqsByOngIdService, findReqsByPlaceOwnerIdService, ongConfirmByReqIdService, placeConfirmByReqIdService } from "../services/req.service.js";
+import { confirmReqService, createReqService, deleteReqByIdService, findReqByAgendIdService, findReqByPlaceIdService, findReqsByOngIdService, findReqsByPlaceOwnerIdService, ongConfirmByReqIdService, placeConfirmByReqIdService } from "../services/req.service.js";
 import { createImageService } from "../services/Image.service.js";
 import { isImage } from "../middlewares/Place.middleware.js";
-import { findScheduleByAgendId } from "../services/schedule.service.js";
+import { findAllScheduleByUserService, findScheduleByAgendId, findScheduleByUserService } from "../services/schedule.service.js";
 import { Place } from "../models/place.js";
 import { findPlaceByIdService, findPlaceByOngIdService, findPlaceByPlaceOwnerIdService } from "../services/place.service.js";
 import { findONGrepByIdService } from "../services/globalAuth.service.js";
+import { reqModel } from "../models/req.js";
 
 export const createReq = async (req, res) => {
     const { userId, tipo } = req
@@ -66,6 +67,8 @@ export const findReqsByUserType = async (req, res) => {
    return res.send(requerimento)
 }
 
+
+
 export const findReqsByOngId = async (req, res) => {
     const {userId, tipo} = req 
     
@@ -111,6 +114,46 @@ export const confirmReqById = async ( req , res)=>{
     res.send({conf:true, message:"Requerimento confirmado"})
 
 }
+
+export const findReqByNormalUser = async(req,res)=>{
+    const {userId} = req
+    const allSchedules = await findAllScheduleByUserService(userId)
+    let requerimentos = []
+
+    for(const schedule of allSchedules){
+        let agendId = schedule.agendId
+
+        const findReq = await findReqByAgendIdService(agendId)
+        if(findReq){
+            console.log(findReq)
+            requerimentos.push(findReq)
+        }else{
+            console.log("nao tem")
+        }
+    }
+
+   return res.send(requerimentos)
+}
+
+export const findReqByAgendId = async(req,res)=>{
+    const {agendId} = req.params
+
+    try{
+        const requerimento = await findReqByAgendIdService(agendId)
+
+
+        if(!requerimento){
+            return res.status(400).send({empty:true})
+        }
+
+        return res.send(requerimento)
+    }catch(err){
+        console.log(err.toString())
+        return res.status(500).send({message:"Erro interno no servidor"})
+    }
+}
+
+
 
 /*export const findReqsByPlaceOwnerId = async (req, res) => {
     console.log("aqui")
