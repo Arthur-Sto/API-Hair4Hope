@@ -74,12 +74,7 @@ const reqSchema = new Schema({
   }
 })
 
-/*reqSchema.pre("findOneAndUpdate",async function(next){
-  if ((this.ONGConfirm + this.PlaceConfirm) ==2){
-    this.FullConfirm = true
-  }
-  return next()
-})*/
+
 
 export const reqModel = model("Req", reqSchema)
 

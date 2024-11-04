@@ -1,4 +1,4 @@
-import { createReq, findReqsByOngId, findReqsByPlaceOwnerId, /*findReqByPlaceId, updateReq */} from "../controllers/req.controller.js";
+import { createReq, /*findReqByPlaceId, updateReq */ deleteReqById, findReqsByUserType, confirmReqById} from "../controllers/req.controller.js";
 import { Router } from "express";
 import { imgMiddleware } from "../middlewares/Place.middleware.js";
 import { authMiddleware } from "../middlewares/global.middleware.js";
@@ -11,7 +11,7 @@ reqRoute.post("/update/:PlaceId", updateReq)
 reqRoute.get("/:PlaceId",findReqByPlaceId)*/
 
 reqRoute.post("/create",imgMiddleware, authMiddleware, createReq)
-reqRoute.get("/find", authMiddleware, findReqsByPlaceOwnerId)
-reqRoute.get("/findbyong", authMiddleware, findReqsByOngId)
-
+reqRoute.get("/find", authMiddleware, findReqsByUserType)
+reqRoute.post("/delete",deleteReqById)
+reqRoute.post("/confirm", authMiddleware, confirmReqById)
 export default reqRoute 
