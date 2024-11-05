@@ -25,7 +25,7 @@ export const findAllSchedulesService = () => Schedule.find()
 export const findScheduleByAgendId = (agendId)=>Schedule.findOne({agendId})
 
 
-
+export const findSchedulesByPlaceIdService = (PlaceId) => Schedule.find({PlaceId}).populate("UserId")
 
 
 export function getIntervalos(timesObj) {
@@ -50,3 +50,4 @@ export function getIntervalos(timesObj) {
     return horarios;
   }
   
+export const claimSchedule = (scheduleId)=>Schedule.findByIdAndUpdate(scheduleId, {done:true})

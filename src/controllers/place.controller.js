@@ -18,6 +18,8 @@ export const createPlace = async (req, res) => {
   const idPlaceOwner = req.userId
   let { foto, nome, endereco, cnpj, cep, ong_parc } = req.body
 
+  console.log("chegou aqui")
+
   if (!foto && !nome && !endereco && !cnpj && !cep && ong_parc){
     return res.status(400).send({message:"Preencha todos os campos"})
   }
@@ -70,7 +72,7 @@ export const updatePlace = async (req, res) => {
 
     
 
-    const update = await updatePlaceByIdService(placeId, { foto: (foto!=null && `${req.baseUrl}/${foto._id}`), foto, nome, endereco, cep })
+    const update = await updatePlaceByIdService(placeId,{ foto, nome, endereco, cep })
 
     if (!update) {
       return res.status(400).send({ message: "Não foi possível atualizar" })
@@ -132,19 +134,15 @@ export const findAllPlaces = async (req, res) => {
 
 export const findPlaceByPlaceOwnerId = async (req,res)=>{
 
-  const {idPlaceOwner} = req.params
+  const {userId} = req
 
-  if(!Types.ObjectId.isValid(idPlaceOwner)){
-    return res.status(400).send({message:"ID inválido"})
-  }
-
-  const placeInfo = await findPlaceByPlaceOwnerIdService(idPlaceOwner)
+  const placeInfo = await findPlaceByPlaceOwnerIdService(userId)
   
 
   if(!placeInfo){
     return res.status(400).send({message:"Não foi possível encontrar o estabelecimento"})
   }
-
+  console.log(placeInfo)
   return res.send({placeInfo})
 
   

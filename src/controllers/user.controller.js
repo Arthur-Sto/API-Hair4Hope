@@ -9,6 +9,7 @@ import {phone} from "phone";
 export const createUser = async (req, res) => {
     const { nome, email, senha } = req.body;
 
+    console.log("chegou aqui")
     try {
         const user = await createUserService({
             nome,
@@ -70,6 +71,19 @@ export const findById = async (req, res) => {
     const id = req.params.id
     try {
         const user = await findUserByIdService(id)
+        return res.send({ user })
+    } catch (err) {
+        return res.status(500).send({ message: err })
+    }
+}
+
+
+
+export const getUserInfo = async (req, res) => {
+    console.log("oi")
+    const {userId} = req
+    try {
+        const user = await findUserByIdService(userId)
         return res.send({ user })
     } catch (err) {
         return res.status(500).send({ message: err })
