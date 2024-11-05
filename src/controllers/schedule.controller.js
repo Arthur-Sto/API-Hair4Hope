@@ -1,6 +1,7 @@
 import mongoose, { Types } from "mongoose";
-import { createScheduleService, findAllScheduleByUserService, updateScheduleService, findScheduleByIdService, findSchedulesByUserService, deleteScheduleByIdService, findHorariosByPlaceIdService, getIntervalos, findAllSchedulesService, updateScheduleByIdService } from "../services/schedule.service.js";
+import { createScheduleService, findAllScheduleByUserService, updateScheduleService, findScheduleByIdService, findSchedulesByUserService, deleteScheduleByIdService, findHorariosByPlaceIdService, getIntervalos, findAllSchedulesService, updateScheduleByIdService, findSchedulesByPlaceIdService } from "../services/schedule.service.js";
 import { findUserByIdService } from "../services/globalAuth.service.js";
+import { findPlaceByPlaceOwnerIdService } from "../services/place.service.js";
 
 export const createSchedule = async (req, res) => {
     const id = req.userId
@@ -98,14 +99,16 @@ export const findHorariosByPlaceId = async (req,res)=>{
 
     const horarios = await findHorariosByPlaceIdService(PlaceId)
 
-    if(horarios.horarios_func && horarios.horarios_func[diasemana]){
+    let horariosObj = (typeof horarios.horarios_func) == "string" ? JSON.parse(horarios.horarios_func) : horarios.horarios_func
 
-        let intervalos = getIntervalos(horarios.horarios_func[diasemana])
+
+    
+        let intervalos = getIntervalos(horariosObj[diasemana])
 
         console.log(intervalos)
 
         return res.send({message:"Horário carregado...",...horarios.horarios_func[diasemana], success:true, horarios:intervalos})
-    }
+    
 
     return res.status(400).send({message:"Algo deu errado",success:false})
 }
@@ -135,6 +138,29 @@ export const deleteScheduleById = async(req,res)=>{
     }
 }
 
+
+export const findScheduleByPlaceOwner = async(req,res)=>{
+    const {userId} = req 
+    let schedules = [] 
+
+    try{
+    const place = await findPlaceByPlaceOwnerIdService(userId)
+
+    if(!place){
+        return res.status(400).send(schedules)
+    }
+
+    const placeId = place._id 
+
+    schedules = await findSchedulesByPlaceIdService(placeId)
+
+    console.log(schedules)
+
+    return res.send(schedules)
+    }catch(err){
+        return res.send([])
+    }
+}
 
 /*
 export const findAllScheduleByUser = async (req,res)=>{

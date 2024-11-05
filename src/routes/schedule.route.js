@@ -2,7 +2,7 @@
 
 
 import { Router } from "express";
-import { createSchedule,  deleteScheduleById,  findAllSchedules,  findHorariosByPlaceId, FindSchedulesByUserId, updateSchedule} from "../controllers/schedule.controller.js";
+import { createSchedule,  deleteScheduleById,  findAllSchedules,  findHorariosByPlaceId, findScheduleByPlaceOwner, FindSchedulesByUserId, updateSchedule} from "../controllers/schedule.controller.js";
 import { authMiddleware } from "../middlewares/global.middleware.js";
 import { findAllScheduleByUserService } from "../services/schedule.service.js";
 
@@ -22,6 +22,7 @@ scheduleRoute.post("/delete", deleteScheduleById)
 
 scheduleRoute.post("/update",authMiddleware, updateSchedule)
 
+scheduleRoute.get("/placeowner",authMiddleware,findScheduleByPlaceOwner)
 
 
 

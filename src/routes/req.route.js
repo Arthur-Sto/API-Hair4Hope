@@ -1,6 +1,5 @@
 import { createReq, /*findReqByPlaceId, updateReq */ deleteReqById, findReqsByUserType, confirmReqById, findReqByAgendId, findReqByNormalUser} from "../controllers/req.controller.js";
 import { Router } from "express";
-import { imgMiddleware } from "../middlewares/Place.middleware.js";
 import { authMiddleware } from "../middlewares/global.middleware.js";
 
 
@@ -10,7 +9,7 @@ const reqRoute = Router()
 reqRoute.post("/update/:PlaceId", updateReq)
 reqRoute.get("/:PlaceId",findReqByPlaceId)*/
 
-reqRoute.post("/create",imgMiddleware, authMiddleware, createReq)
+reqRoute.post("/create", authMiddleware, createReq)
 reqRoute.get("/find", authMiddleware, findReqsByUserType)
 reqRoute.post("/delete",deleteReqById)
 reqRoute.post("/confirm", authMiddleware, confirmReqById)

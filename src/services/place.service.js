@@ -14,7 +14,7 @@ export const findAllPlacesService =() => Place.find()
 
 export const setHorarioByPlaceIdService = (PlaceId,horarios_func)=>Place.findOneAndUpdate({_id:PlaceId},{horarios_func})
 
-export const findPlaceByPlaceOwnerIdService = (idPlaceOwner) => Place.findOne({idPlaceOwner})
+export const findPlaceByPlaceOwnerIdService = (idPlaceOwner) => Place.findOne({idPlaceOwner}).populate(["idPlaceOwner","ong_parc"])
 
 export const findOngByPlaceIdService = (PlaceId) => Place.findOne({_id:PlaceId}).populate("")
 

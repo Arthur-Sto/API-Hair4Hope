@@ -4,9 +4,6 @@ import { findOngByCNPJService } from "../services/ong.service.js";
 
 import { cnpj as CNPJchecker } from "cpf-cnpj-validator";
 
-import { createImageService } from "../services/Image.service.js";
-import { fileTypeFromBuffer } from "file-type";
-
 
 export const cepMiddleware = async (req, res, next) => {
     const { cep } = req.body
@@ -25,21 +22,6 @@ export const cepMiddleware = async (req, res, next) => {
 }
 
 
-export const imgMiddleware = async (req, res, next) => {
-    let { foto } = req.body
-    if (!foto) { return next() }
-
-    let isImgCheck = await isImage(foto)
-
-    if (!isImgCheck) {
-        return res.status(400).send({ message: "Não foi possível salvar a imagem/foto" });
-    }
-    const img = await createImageService({ Arquivo: foto })
-    req.body.foto = `/image/${img._id}`
-
-    return next()
-
-}
 
 export const cnpjMiddleware = async (req, res, next) => {
     let { cnpj } = req.body

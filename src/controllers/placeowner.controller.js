@@ -72,9 +72,9 @@ export const deletePlaceOwner = async (req, res) => {
 
 
 export const findPlaceOwnerById = async (req, res) => {
-    const PlaceOwnerId = req.params.id
+    const {userId} = req
     try {
-        const PlaceOwner = await findPlaceOwnerByIdService(PlaceOwnerId)
+        const PlaceOwner = await findPlaceOwnerByIdService(userId)
 
         if (!PlaceOwner) {
             return res.status(400).send({ message: "Algo deu errado" })

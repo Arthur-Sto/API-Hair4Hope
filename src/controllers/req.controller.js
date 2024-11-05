@@ -1,7 +1,5 @@
 import { Types } from "mongoose";
 import { confirmReqService, createReqService, deleteReqByIdService, findReqByAgendIdService, findReqByPlaceIdService, findReqsByOngIdService, findReqsByPlaceOwnerIdService, ongConfirmByReqIdService, placeConfirmByReqIdService } from "../services/req.service.js";
-import { createImageService } from "../services/Image.service.js";
-import { isImage } from "../middlewares/Place.middleware.js";
 import { findAllScheduleByUserService, findScheduleByAgendId, findScheduleByUserService } from "../services/schedule.service.js";
 import { Place } from "../models/place.js";
 import { findPlaceByIdService, findPlaceByOngIdService, findPlaceByPlaceOwnerIdService } from "../services/place.service.js";
@@ -27,7 +25,7 @@ export const createReq = async (req, res) => {
 
     console.log("ong",PlaceId.toString())
 
-    const schedule = await findScheduleByAgendId(agendId)
+    const schedule = await findScheduleByAgendId(agendId.toLowerCase())
 
 
     if (!schedule) {
