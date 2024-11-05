@@ -4,6 +4,7 @@ import { Types } from "mongoose";
 import { deleteScheduleByIdService } from "../services/schedule.service.js";
 import {phone} from "phone";
 import { sendVerificationCode } from "../services/verify.service.js";
+import { findPlaceByPlaceOwnerIdService } from "../services/place.service.js";
 
 
 
@@ -131,7 +132,9 @@ export const PlaceOwnerLogin = async (req, res) => {
 
         const token = generateToken(user._id)
 
-        return res.send({ message: "Usuário logado", token,userId:user._id  })
+        const hasPlace = await findPlaceByPlaceOwnerIdService(user._id)
+
+        return res.send({ message: "Usuário logado", token,userId:user._id, hasPlace })
     } catch (err) {
         return res.status(500).send({ message: `Erro: ${err.toString()}` })
     }
