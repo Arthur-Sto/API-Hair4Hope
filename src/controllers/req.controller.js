@@ -7,6 +7,7 @@ import { findONGrepByIdService } from "../services/globalAuth.service.js";
 import { reqModel } from "../models/req.js";
 
 export const createReq = async (req, res) => {
+    try{
     const { userId, tipo } = req
     let {agendId, foto, PlaceId, ongId, Tamanho} = req.body
 
@@ -42,6 +43,9 @@ export const createReq = async (req, res) => {
     console.log(requerimento)
 
     return res.send({ requerimento })
+}catch(err){
+    return res.status(500).send({message:"Algo deu errado"})
+}
 }
 
 
