@@ -12,20 +12,20 @@ const reqSchema = new Schema({
   PlaceId: {
     type: Schema.Types.ObjectId,
     ref: 'place',
-    unique: true,
+    //unique: true,
     required: true,
   },
   PlaceOwnerId:{
     type: Schema.Types.ObjectId,
     ref: 'PlaceOwner',
-    unique: true,
+    //unique: true,
     required: false,
 
   },
   ongId: {
     type: Schema.Types.ObjectId,
     ref: 'ong',
-    unique: true,
+    //unique: true,
     required: false,
   },
 
