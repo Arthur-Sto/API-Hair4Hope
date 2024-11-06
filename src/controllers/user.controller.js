@@ -166,6 +166,11 @@ export const LoginUser = async (req, res) => {
 
         const token = generateToken(user._id)
 
+
+        /*const {tipoCabelo, Coloracao, AdicionaisCabelo} = user 
+        let putHair = (!tipoCabelo || !Coloracao || !AdicionaisCabelo) ? true : null*/
+
+
         return res.send({ message: "Usuário logado", token, userId: user._id })
         
     } catch (err) {

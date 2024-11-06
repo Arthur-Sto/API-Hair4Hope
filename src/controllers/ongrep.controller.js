@@ -133,19 +133,17 @@ export const ONGrepLogin = async (req, res) => {
 
 
 export const findONGrepById = async (req, res) => {
-    const OngRepId = req.params.id
+    const {userId} = req
     try {
 
-        if (!Types.ObjectId.isValid(OngRepId)) {
-            return res.status(400).send({ message: "ID inválido" })
-        }
+        const ONGrep = await findONGrepByIdService(userId)
 
-        const ONGrep = await findONGrepByIdService(OngRepId)
+        
 
         if (!ONGrep) {
             return res.status(400).send({ message: "Algo deu errado" })
         }
-        return res.send({ message: "Tudo certo", ONGrep })
+        return res.send({ONGrep})
 
 
     } catch (err) {

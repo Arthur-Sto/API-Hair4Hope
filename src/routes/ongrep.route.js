@@ -9,7 +9,7 @@ const ONGrepRouter = Router()
 ONGrepRouter.post("/login", ONGrepLogin)
 ONGrepRouter.post("/create",createMiddleware, createONGrep )
 ONGrepRouter.post("/update", authMiddleware, updateONGrep)
-ONGrepRouter.get("/:id",findONGrepById)
-ONGrepRouter.get("/createpass")
+ONGrepRouter.get("/info",authMiddleware,findONGrepById)
+//ONGrepRouter.get("/createpass")
 
 export default ONGrepRouter
