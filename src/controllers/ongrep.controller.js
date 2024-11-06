@@ -67,10 +67,10 @@ export const createONGrep = async (req, res) => { //O QUE FAZ COM O ONGID
 
 export const updateONGrep = async (req, res) => {
     const ONGrepID = req.userId
-    const { nome, email, senha, Telefone, ongname } = req.body
+    const { nome, email, Telefone } = req.body
 
 
-    if (!nome && !email && !senha && !Telefone && !ongname) {
+    if (!nome && !email && !Telefone ) {
         return res.status(400).send({ message: "Preencha pelo menos um campo" })
     }
 
@@ -81,7 +81,7 @@ export const updateONGrep = async (req, res) => {
     }
 
 
-    return res.send({ message: "Atualizado com sucesso" })
+    return res.send({ message: "Atualizado com sucesso", update:true })
 
 }
 
