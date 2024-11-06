@@ -14,7 +14,7 @@ scheduleRoute.get("/user", authMiddleware , FindSchedulesByUserId)
 
 scheduleRoute.get("/all", findAllSchedules)
 
-scheduleRoute.get("/search/:placeid/:diasemana",findHorariosByPlaceId)
+scheduleRoute.get("/search/:PlaceId/:data",findHorariosByPlaceId)
 
 scheduleRoute.post("/create",authMiddleware, createSchedule)
 
