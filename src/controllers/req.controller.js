@@ -23,7 +23,6 @@ export const createReq = async (req, res) => {
 
     ongId = PlaceId.ong_parc
 
-    console.log("ong",PlaceId.toString())
 
     const schedule = await findScheduleByAgendId(agendId.toLowerCase())
 

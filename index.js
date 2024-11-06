@@ -58,7 +58,7 @@ app.listen(port, () => console.log(`Servidor rodando na porta ${port}`));
 import User from "./src/models/user.js";
 import { generateToken } from "./src/services/globalAuth.service.js";
 import { Place } from "./src/models/place.js";
-console.log(`Bearer ${generateToken("672a0e7cb63eb8567646e602")} 1`)
+//console.log(`Bearer ${generateToken("672922d9c02af92b3d0e2165")} 2`)
 //console.log(await Place.find())
 /*const updt = await User.updateMany({_id:'66f607221680946217e356f2'}, {email:'tester1112@gmail.com'})
 console.log(updt)*/
