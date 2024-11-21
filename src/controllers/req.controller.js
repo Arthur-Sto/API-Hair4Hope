@@ -40,6 +40,7 @@ export const createReq = async (req, res) => {
 
     return res.send({ requerimento })
 }catch(err){
+    console.log(err.toString())
     return res.status(500).send({message:"Algo deu errado"})
 }
 }

@@ -28,6 +28,7 @@ export const createPlace = async (req, res) => {
 
   if(cnpjFind.length == 0){
     return res.status(400).send({message:"Cnpj não cadastrado"})
+    
   }
 
   
