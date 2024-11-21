@@ -14,3 +14,4 @@ export const claimOngPass = (ongId) => ONG.findOneAndUpdate({_id:ongId},{
     pass_acesso:"##".replaceAll("#",()=>Math.floor(Date.now() * Math.random()).toString(35).substring(0,3))
 })
 
+export const addRepToOng = (ongId, repId) => ONG.findByIdAndUpdate(ongId,{$push:{representantes: repId}})

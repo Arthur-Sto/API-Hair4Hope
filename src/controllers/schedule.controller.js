@@ -107,21 +107,28 @@ export const findHorariosByPlaceId = async (req, res) => {
         let diasemana = obterDiaDaSemana(dia, mes)
 
         console.log(PlaceId)
+        console.log(diasemana)
         if (!Types.ObjectId.isValid(PlaceId)) {
             return res.status(404).send({ message: "ID inválido" })
         }
 
         const horarios = await findHorariosByPlaceIdService(PlaceId)
 
-        let horariosObj = (typeof horarios.horarios_func) == "string" ? JSON.parse(horarios.horarios_func) : horarios.horarios_func
+        
+       
 
+        let horariosObj = (typeof horarios.horarios_func) == "string" ? JSON.parse(horarios.horarios_func)  : horarios.horarios_func
+
+       
         let intervalos = getIntervalos(horariosObj[diasemana])
+
 
         
         console.log(intervalos,intervalos.length)
 
         return res.send({ message: "Horário carregado...", ...horarios.horarios_func[diasemana], success: true, horarios: intervalos })
     } catch (err) {
+        console.log(err.toString())
         return res.status(500).send({ message: "Erro" })
     }
 

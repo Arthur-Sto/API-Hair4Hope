@@ -1,0 +1,88 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!--
+        nome, email, senha, Telefone, ongId, pass_acesso
+    -->
+    <label for="nome">Nome:</label>
+    <input type="text" name="nome" id="nome"> <br>
+
+
+    <label for="email">Email:</label>
+    <input type="text" name="email" id="email"><br><br>
+
+    <label for="senha">senha:</label>
+    <input type="text" name="senha" id="senha"><br>
+
+    <label for="senhaconf">confirme a senha:</label>
+    <input type="text" name="senhaconf" id="senhaconf"> <br><br>
+
+
+    <label for="Telefone">Telefone:</label>
+    <input type="text" name="Telefone" id="Telefone"> <br> <br>
+    
+    <label for="ongname">Nome da ong:</label> 
+    <select name="ongname" id="ongname">
+        <!-- 
+        <option value="oi">a</option>
+        -->
+    </select> <br>
+
+    <label for="pass_acesso">Código de acesso:</label>
+    <input type="text" name="pass_acesso" id="pass_acesso"> 
+    <br>
+
+    <button value="" id="btnCad">Cadastrar</button>
+
+    <script>
+        const nome = document.getElementById("nome")
+        const email = document.getElementById("email")
+        const senha = document.getElementById("senha")
+        const senhaconf = document.getElementById("senhaconf")
+        const Telefone = document.getElementById("Telefone")
+        const ongsArea = document.getElementById("ongname")
+        const btnCad = document.getElementById("btnCad")
+        const pass_acesso = document.getElementById("pass_acesso")
+
+        fetch("../ong").then(async res=>{
+           const ongs = await res.json()
+           ongs.forEach(ong=>{
+            ongsArea.innerHTML+=`<option value = "${ong._id}">${ong.Nome}</option>`
+           })
+       })
+
+       const onClick = ()=>{
+            const toReg = {
+                nome:nome.value,email,
+                senha:senha.value,
+                senhaconf:senhaconf.value,
+                email:email.value,
+                Telefone:Telefone.value,
+                ongId:ongsArea.value, 
+                pass_acesso:pass_acesso.value
+            }
+
+            fetch("./create",{
+                headers:{"Content-Type": "application/json"},
+                method:"POST", body:JSON.stringify(toReg)
+            }).then(async res=>{
+                const msgObj = await res.json()
+
+                alert(msgObj.message)
+            })
+       }
+
+       btnCad.onclick = onClick
+
+    </script>
+
+</body>
+
+</html>

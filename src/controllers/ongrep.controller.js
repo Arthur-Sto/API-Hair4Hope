@@ -5,16 +5,19 @@ import valid_email from "email-validator"
 import { Types } from "mongoose";
 import bcrypt from "bcrypt";
 import { phone } from "phone";
-import { claimOngPass, findOngByIdService, findOngByNameService } from "../services/ong.service.js";
+import { addRepToOng, claimOngPass, findOngByIdService, findOngByNameService } from "../services/ong.service.js";
 import { sendVerificationCode } from "../services/verify.service.js";
+import path from "path";
 
 
 export const createONGrep = async (req, res) => { //O QUE FAZ COM O ONGID
+    console.log("chegou")
     try {
         let { nome, email, senha, Telefone, ongname, ongId, pass_acesso } = req.body
 
 
-        if (!nome || !email || !senha || !Telefone || !ongname || !ongId) {
+        if (!nome || !email || !senha || !Telefone /*|| !ongname*/ || !ongId) {
+            console.log("nao")
             return res.status(400).send({ message: "Preencha todos os campos" })
         }
 
@@ -22,13 +25,9 @@ export const createONGrep = async (req, res) => { //O QUE FAZ COM O ONGID
            return res.status(404).send({message:"ONG não encontrada"})
         }*/
 
-        const findOng =await findOngByNameService(ongname)
-
-        if(!findOng){
-            return res.status(400).send({ message: "Ong não encontrada" })
-        }
-
-        req.body.ongId = findOng._id
+       if(!Types.ObjectId.isValid(ongId)){
+        return res.status(400).send({ message: "ONG não disponível" })
+       }
         
 
         if (!phone(Telefone, { country: "BR" }).isValid) {
@@ -41,6 +40,8 @@ export const createONGrep = async (req, res) => { //O QUE FAZ COM O ONGID
         if(!ong){
             return res.status(400).send({ message: "ONG não disponível" })
         }
+
+       
 
         if(ong.pass_acesso.toLocaleLowerCase() != pass_acesso.toLocaleLowerCase()){
             return res.status(400).send({ message: "Código de acesso inválido, consulte algum administrador" })
@@ -55,6 +56,8 @@ export const createONGrep = async (req, res) => { //O QUE FAZ COM O ONGID
         }
 
         await claimOngPass(ongId)
+
+        await addRepToOng(ongId,user._id)
     
         return res.send({ verifyMessage:`Cadastro efetuado com sucesso, verifique o email ${email}`, message: "Sucesso ao criar o perfil", userId:user._id, user:user,email,nome })
 
@@ -66,6 +69,7 @@ export const createONGrep = async (req, res) => { //O QUE FAZ COM O ONGID
 }
 
 export const updateONGrep = async (req, res) => {
+    
     const ONGrepID = req.userId
     const { nome, email, Telefone } = req.body
 
@@ -131,6 +135,10 @@ export const ONGrepLogin = async (req, res) => {
 
 }
 
+export const addOngRepByPage = async (req,res)=>{
+
+    res.sendFile(path.resolve('pages/addOngRep.html'))
+}
 
 export const findONGrepById = async (req, res) => {
     const {userId} = req

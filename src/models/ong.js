@@ -15,6 +15,12 @@ const ONGSchema = new Schema({
         trim:true,
         default:[] //cnpj
     },
+
+    representantes:{
+        type:[Types.ObjectId],
+        ref: "ONGrep",
+        default:[]
+    },
     
     pass_acesso:{
         type:String,

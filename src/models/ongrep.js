@@ -22,10 +22,6 @@ const ONGrepSchema = new mongoose.Schema({
     required: true,
     default: null,
   },
-  ongname: {
-    type: String,
-    required: true,
-  },
   ongId: {
     type: Schema.Types.ObjectId,
     ref: "ong",

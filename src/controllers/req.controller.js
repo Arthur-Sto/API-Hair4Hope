@@ -11,12 +11,8 @@ export const createReq = async (req, res) => {
     const { userId, tipo } = req
     let {agendId, foto, PlaceId, ongId, Tamanho} = req.body
 
-    
-    
 
     PlaceId = await findPlaceByPlaceOwnerIdService(userId)
-
-
 
     if(!PlaceId){
         return res.status(400).send({message:"Estabelecimento indisponível"})

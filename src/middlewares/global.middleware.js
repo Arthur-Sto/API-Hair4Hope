@@ -2,6 +2,7 @@ import dotenv from "dotenv"
 import jwt from "jsonwebtoken";
 import { findONGrepByIdService, findPlaceOwnerByIdService, findUserByIdService } from "../services/globalAuth.service.js";
 import { validate } from "email-validator";
+import {phone} from "phone";
 
 dotenv.config();
 
@@ -73,6 +74,8 @@ export const authMiddleware = (req, res, next) => {
 export const createMiddleware = (req, res, next) => {
     const { nome, email, senha, senhaconf } = req.body
 
+    console.log(nome, email, senha)
+
     if (
         !nome ||
         !email ||
@@ -97,7 +100,7 @@ export const createMiddleware = (req, res, next) => {
             .send({ message: "As senhas são diferentes." });
     }
 
-    if(!strongpass(senha)){
+    if (!strongpass(senha)) {
         return res
             .status(400)
             .send({ message: "Senha muito fraca, tente adicionar números, letras maiúsculas ou até mesmo caractéres especiais" });
@@ -105,6 +108,27 @@ export const createMiddleware = (req, res, next) => {
     return next()
 }
 
-const strongpass= (pass)=> /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d.*\d.*\d.*\d)(?=.*\d)(?=.*[_$!@$*&#-])[^ ]{8,}$/.test(pass)
+const strongpass = (pass) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d.*\d.*\d.*\d)(?=.*\d)(?=.*[_$!@$*&#-])[^ ]{8,}$/.test(pass)
 
 //console.log(strongpass("Meudeusnaonao1234"))
+
+export const bodyVerification = async  (req, res, next) => {
+    const { Telefone, email } = req.body
+    const phoneValidation = phone(Telefone,{country:"BR"}).isValid 
+
+
+    if (!phoneValidation) {
+        return res.status(400).send({ message: "Telefone inválido" })
+    }
+
+    const isValidEmail = validate(email);
+
+    console.log(`email:${isValidEmail}\ntel:${phoneValidation}`)
+
+    if (!isValidEmail) {
+        return res
+            .status(400)
+            .send({ message: "Tente outro e-mail." });
+    }
+    return next()
+}
