@@ -68,6 +68,8 @@ export const createONGrep = async (req, res) => { //O QUE FAZ COM O ONGID
     }
 }
 
+
+
 export const updateONGrep = async (req, res) => {
     
     const ONGrepID = req.userId
@@ -146,6 +148,8 @@ export const findONGrepById = async (req, res) => {
 
         const ONGrep = await findONGrepByIdService(userId)
 
+
+        console.log("chegou")
         
 
         if (!ONGrep) {
@@ -158,7 +162,6 @@ export const findONGrepById = async (req, res) => {
         return res.status(500).send({ message: "Erro" })
     }
 }
-
 
 
 
