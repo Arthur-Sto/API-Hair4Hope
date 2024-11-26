@@ -1,5 +1,6 @@
 import { Place } from "../models/place.js";
 import { reqModel } from "../models/req.js";
+import { findScheduleByAgendId, updateScheduleByAgendIdService } from "./schedule.service.js";
 
 
 export const createReqService = (body) => reqModel.create(body)
@@ -10,6 +11,9 @@ export const placeConfirmByReqIdService = (reqId) => reqModel.findOneAndUpdate({
 
  const verifyFullConfirmByReqIdService = async (reqId) => {
     let req = await reqModel.findOne({ _id: reqId })
+
+   
+
     let FullConfirm = (req.PlaceConfirm + req.ONGConfirm) == 2 ? true : false
     let dataComp =  FullConfirm == true ? new Date().toLocaleDateString("pt-br",{hour:"2-digit",minute:"2-digit"}) : null
 
@@ -20,7 +24,7 @@ export const placeConfirmByReqIdService = (reqId) => reqModel.findOneAndUpdate({
     }
 
     await reqModel.updateOne({ _id: reqId }, toUpdate)
-
+    await updateScheduleByAgendIdService(req.agendId, {done: FullConfirm})
     
     return FullConfirm
 }
@@ -65,7 +69,11 @@ export const confirmReqService = async (option/* ong or placeowner*/, reqId, boo
 
     const verify = await verifyFullConfirmByReqIdService(reqId)
 
+    
+
     console.log(verify)
 
+    
+    
     return await reqModel.findById(reqId)
 }

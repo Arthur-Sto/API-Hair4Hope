@@ -28,9 +28,14 @@ export const createReq = async (req, res) => {
         return res.status(400).send({ message: "Código de agendamento inválido" })
     }
 
+    //schedule.UserId aq o
+
    let {tipoCabelo, AdicionaisCabelo, Coloracao} = schedule
 
+   console.log("chegou até aqui")
+
     const requerimento = await createReqService({ PlaceOwnerId:userId, PlaceId, Tamanho, tipoCabelo,Coloracao, AdicionaisCabelo, foto, ongId, agendId, PlaceConfirm:true })
+
 
     if (!requerimento) {
         return res.status(400).send({ message: "Não foi possível criar o requerimento, tente novamente mais tarde" })
@@ -38,7 +43,7 @@ export const createReq = async (req, res) => {
 
     console.log(requerimento)
 
-    return res.send({ requerimento })
+    return res.send({ requerimento, message:"Requerimento criado" })
 }catch(err){
     console.log(err.toString())
     return res.status(500).send({message:"Algo deu errado"})
